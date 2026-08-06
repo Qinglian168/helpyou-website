@@ -59,10 +59,8 @@ function injectFooter() {
             <div class="footer-grid">
                 <div>
                     <div class="footer-brand">
-                        <img src="images/helpyou-logo.png" alt="HELPYOU GROUP" class="logo-img">
-                        <div class="logo-text">
-                            <span class="logo-main">HELPYOU GROUP</span>
-                            <span class="logo-sub">CO., LTD.</span>
+                        <div class="logo-text" style="flex-direction: row; gap: 8px;">
+                            <span class="logo-main">HELPYOU GROUP CO., LTD.</span>
                         </div>
                     </div>
                     <p class="footer-desc" data-i18n="footer_about">鴻鵬集團有限公司是專業的企業級網路設備分銷商，提供全方位的網路通訊解決方案與技術支援服務。</p>
