@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="產品目錄 - 鴻鵬集團有限公司 - Cisco, Fortinet, Dell, Juniper, Aruba, HPE, Huawei, H3C, NVIDIA, Yealink">
+    <title data-i18n="title_products">產品目錄 - 鴻鵬集團有限公司</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body data-page="products">
+    <div id="header-placeholder"></div>
+
+    <!-- Page Header -->
+    <div class="page-header" style="margin-top: 72px;">
+        <h1 data-i18n="products_title">產品目錄</h1>
+        <p data-i18n="products_subtitle">瀏覽我們提供的優質網路設備產品</p>
+    </div>
+
+    <!-- Products Section -->
+    <section class="section" style="padding-top: 40px;">
+        <div class="section-container">
+            <!-- Filter Bar -->
+            <div class="filter-bar">
+                <div class="filter-label" data-i18n="filter_brand">品牌篩選</div>
+                <div class="brand-filters" id="brandFilters">
+                    <!-- Brand filters will be injected by JavaScript -->
+                </div>
+                <div class="filter-label" style="margin-top: 16px;" data-i18n="filter_category">產品類別</div>
+                <div class="category-filters" id="categoryFilters">
+                    <!-- Category filters will be injected by JavaScript -->
+                </div>
+                <div style="margin-top: 16px; font-size: 0.85rem; color: var(--text-light);">
+                    <span id="resultsCount">29</span> <span data-i18n="results_count">個產品</span>
+                </div>
+            </div>
+
+            <!-- Product Grid -->
+            <div class="product-grid" id="productGrid">
+                <!-- Products will be injected by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="js/i18n.js"></script>
+    <script src="js/products.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

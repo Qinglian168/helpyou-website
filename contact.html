@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="聯絡我們 - 鴻鵬集團有限公司">
+    <title data-i18n="title_contact">聯絡我們 - 鴻鵬集團有限公司</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body data-page="contact">
+    <div id="header-placeholder"></div>
+
+    <!-- Page Header -->
+    <div class="page-header" style="margin-top: 72px;">
+        <h1 data-i18n="contact_title">聯絡我們</h1>
+        <p data-i18n="contact_subtitle">我們期待與您合作，請隨時聯繫我們</p>
+    </div>
+
+    <!-- Contact Section -->
+    <section class="section">
+        <div class="section-container">
+            <div class="contact-grid">
+                <!-- Contact Info -->
+                <div class="contact-info-card">
+                    <h3 data-i18n="contact_info_title">聯絡資訊</h3>
+
+                    <div class="contact-info-item">
+                        <div class="icon">&#128205;</div>
+                        <div class="content">
+                            <div class="label" data-i18n="contact_address_label">公司地址</div>
+                            <div class="value" data-i18n="contact_address_value">九龍新蒲崗太子道東704號新時代工貿商業中心31樓5-11室A03</div>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-item">
+                        <div class="icon">&#9993;&#65039;</div>
+                        <div class="content">
+                            <div class="label" data-i18n="contact_email_label">電子郵件</div>
+                            <div class="value">
+                                <a href="mailto:info@helpyouinfo.com">info@helpyouinfo.com</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-item">
+                        <div class="icon">&#128222;</div>
+                        <div class="content">
+                            <div class="label" data-i18n="contact_phone_label">聯絡電話</div>
+                            <div class="value">
+                                <a href="tel:+8613713704797">086-13713704797</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-item">
+                        <div class="icon">&#128336;</div>
+                        <div class="content">
+                            <div class="label" data-i18n="contact_hours_label">服務時間</div>
+                            <div class="value" data-i18n="contact_hours_value">週一至週五 09:00 - 18:00 (GMT+8)</div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border);">
+                        <div style="font-size: 0.8rem; color: var(--text-medium); margin-bottom: 12px;">&#127760; helpyouinfo.com</div>
+                        <div style="display: flex; gap: 12px;">
+                            <a href="mailto:info@helpyouinfo.com" style="background: rgba(0,123,255,0.08); color: var(--primary); width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.3rem;">&#9993;&#65039;</a>
+                            <a href="https://wa.me/8613713704797" target="_blank" style="background: rgba(0,123,255,0.08); color: var(--primary); width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.3rem;">&#128172;</a>
+                            <a href="tel:+8613713704797" style="background: rgba(0,123,255,0.08); color: var(--primary); width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.3rem;">&#128222;</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="contact-form-card">
+                    <h3 data-i18n="contact_form_title">索取報價</h3>
+                    <form id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" data-i18n="form_name">您的姓名</label>
+                                <input type="text" name="name" class="form-input" required data-i18n-placeholder="form_name" placeholder="您的姓名">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" data-i18n="form_phone">聯絡電話</label>
+                                <input type="tel" name="phone" class="form-input" required data-i18n-placeholder="form_phone" placeholder="聯絡電話">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" data-i18n="form_email">電子郵件</label>
+                                <input type="email" name="email" class="form-input" required data-i18n-placeholder="form_email" placeholder="電子郵件">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" data-i18n="form_company">公司名稱</label>
+                                <input type="text" name="company" class="form-input" data-i18n-placeholder="form_company" placeholder="公司名稱">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" data-i18n="form_product">感興趣的產品</label>
+                            <select name="product" id="productSelect" class="form-select">
+                                <!-- JS dynamically populated -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" data-i18n="form_message">需求描述</label>
+                            <textarea name="message" class="form-textarea" required data-i18n-placeholder="form_message_placeholder" placeholder="請描述您的具體需求，包括產品型號、數量等..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit" data-i18n="form_submit">提交諮詢</button>
+                        <div id="formSuccess" style="display: none; margin-top: 16px; padding: 12px; background: #d1fae5; color: #065f46; border-radius: 8px; font-size: 0.9rem; text-align: center;"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="section section-gray" style="padding: 60px 0;">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title" style="font-size: 1.75rem;" data-i18n="contact_address_label">公司地址</h2>
+            </div>
+            <div style="border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
+                <iframe
+                    src="https://maps.google.com/maps?q=New+Trend+Centre+704+Prince+Edward+Road+East+San+Po+Kong+Kowloon+Hong+Kong&t=&z=16&ie=UTF8&iwloc=&output=embed"
+                    width="100%"
+                    height="400"
+                    style="border:0; display: block;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+            <div style="text-align: center; margin-top: 24px; color: var(--text-medium); font-size: 0.95rem;" data-i18n="contact_address_value">
+                九龍新蒲崗太子道東704號新時代工貿商業中心31樓5-11室A03
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="js/i18n.js"></script>
+    <script src="js/products.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
