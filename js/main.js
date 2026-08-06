@@ -21,8 +21,8 @@ function injectHeader() {
             <ul class="nav-menu" id="navMenu">
                 <li><a href="index.html" class="nav-link" data-page="home" data-i18n="nav_home">首頁</a></li>
                 <li><a href="products.html" class="nav-link" data-page="products" data-i18n="nav_products">產品</a></li>
-                <li><a href="index.html#brands" class="nav-link" data-page="brands" data-i18n="nav_brands">品牌</a></li>
                 <li><a href="index.html#solutions" class="nav-link" data-page="solutions" data-i18n="nav_solutions">解決方案</a></li>
+                <li><a href="index.html#news" class="nav-link" data-page="news" data-i18n="nav_news">新聞</a></li>
                 <li><a href="about.html" class="nav-link" data-page="about" data-i18n="nav_about">關於我們</a></li>
                 <li><a href="contact.html" class="nav-link" data-page="contact" data-i18n="nav_contact">聯絡我們</a></li>
             </ul>
@@ -79,6 +79,7 @@ function injectFooter() {
                     <ul class="footer-links">
                         <li><a href="about.html" data-i18n="nav_about">關於我們</a></li>
                         <li><a href="index.html#solutions" data-i18n="nav_solutions">解決方案</a></li>
+                        <li><a href="index.html#news" data-i18n="nav_news">新聞</a></li>
                         <li><a href="contact.html" data-i18n="nav_contact">聯絡我們</a></li>
                         <li><a href="index.html#why" data-i18n="why_title">為什麼選擇我們</a></li>
                     </ul>
