@@ -692,21 +692,87 @@ body {
 }
 
 .page-header {
-    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    position: relative;
     color: white;
-    padding: 60px 0;
+    padding: 90px 0;
     text-align: center;
+    overflow: hidden;
+    background-color: #061225;
+    background-image: url('../images/hero-bg.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+/* 暗化 overlay 让文字清晰可读 */
+.page-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        /* 顶部底部暗角 */
+        linear-gradient(180deg, rgba(6,18,37,0.50) 0%, rgba(6,18,37,0.18) 30%, rgba(6,18,37,0.22) 70%, rgba(6,18,37,0.60) 100%),
+        /* 中央聚焦 */
+        radial-gradient(ellipse 70% 90% at 50% 50%, rgba(0,0,0,0) 30%, rgba(6,18,37,0.50) 100%);
+    pointer-events: none;
+}
+/* 整体暗化 overlay 让文字更清晰 */
+.page-header::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse 60% 80% at 50% 50%, transparent 0%, rgba(5,15,35,0.30) 70%, rgba(5,15,35,0.55) 100%);
+    pointer-events: none;
 }
 
 .page-header h1 {
-    font-size: 2.5rem;
+    position: relative;
+    z-index: 2;
+    font-size: 2.8rem;
     font-weight: 800;
     margin-bottom: 12px;
+    text-shadow: 0 2px 16px rgba(0,0,0,0.5);
+    letter-spacing: -0.01em;
 }
 
 .page-header p {
+    position: relative;
+    z-index: 2;
     font-size: 1.1rem;
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.85);
+    text-shadow: 0 1px 8px rgba(0,0,0,0.4);
+}
+
+.page-header .breadcrumb {
+    position: relative;
+    z-index: 2;
+    margin-top: 16px;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.page-header .breadcrumb a {
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.page-header .breadcrumb a:hover {
+    color: #6ec6ff;
+}
+
+.page-header .breadcrumb .sep {
+    opacity: 0.5;
+    font-size: 0.7rem;
+}
+
+.page-header .breadcrumb .current {
+    color: rgba(255, 255, 255, 0.95);
 }
 
 .filter-bar {
