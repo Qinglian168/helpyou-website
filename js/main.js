@@ -192,11 +192,8 @@ function renderProducts() {
 
         return '<div class="product-card animate-fade-in-up" onclick="openProductModal(\'' + product.id + '\')">' +
             '<div class="product-image">' +
-                '<div class="product-image-bg ' + product.brandClass + '"></div>' +
+                (product.image ? '<img class="product-img" src="' + product.image + '" alt="' + product.model + '" loading="lazy">' : '<div class="product-image-bg ' + product.brandClass + '"></div>') +
                 '<span class="product-brand-badge ' + product.brandClass + '">' + product.brand + '</span>' +
-                '<div class="product-image-content">' +
-                    '<div class="product-model">' + product.model + '</div>' +
-                '</div>' +
             '</div>' +
             '<div class="product-info">' +
                 '<div class="product-category">' + catText + '</div>' +
@@ -286,11 +283,8 @@ function openProductModal(productId) {
         '<div class="modal-content" onclick="event.stopPropagation()">' +
             '<button class="modal-close" onclick="closeProductModal()">&#10005;</button>' +
             '<div class="product-image" style="height: 200px; margin: -40px -40px 24px; border-radius: 16px 16px 0 0;">' +
-                '<div class="product-image-bg ' + product.brandClass + '"></div>' +
+                (product.image ? '<img class="product-img" src="' + product.image + '" alt="' + product.model + '">' : '<div class="product-image-bg ' + product.brandClass + '"></div>') +
                 '<span class="product-brand-badge ' + product.brandClass + '">' + product.brand + '</span>' +
-                '<div class="product-image-content">' +
-                    '<div class="product-model">' + product.model + '</div>' +
-                '</div>' +
             '</div>' +
             '<div class="modal-product-brand ' + product.brandClass + '">' + product.brand + '</div>' +
             '<h2 class="modal-product-name">' + name + '</h2>' +

@@ -945,6 +945,15 @@ body {
     justify-content: center;
     position: relative;
     overflow: hidden;
+    background: #ffffff;
+}
+
+.product-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    padding: 12px;
 }
 
 .product-image-bg {
