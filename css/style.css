@@ -3,20 +3,20 @@
    ============================================ */
 
 :root {
-    /* === 深蓝主题 === */
-    --primary: #0a1628;
-    --primary-light: #122544;
-    --accent: #3b82f6;
-    --accent-light: #60a5fa;
-    --accent-dark: #2563eb;
-    --bg-light: #0a1628;       /* body 底色 */
-    --bg-gray: #122544;        /* section gray */
-    --text-dark: #ffffff;      /* 主文字白 */
-    --text-medium: #cbd5e1;    /* 次文字浅蓝灰 */
+    /* === 淡蓝主题 === */
+    --primary: #1e3a5f;
+    --primary-light: #2c5282;
+    --accent: #2563eb;
+    --accent-light: #3b82f6;
+    --accent-dark: #1d4ed8;
+    --bg-light: #f0f7ff;       /* body 底色 极浅蓝 */
+    --bg-gray: #e6f0ff;        /* section gray 浅蓝灰 */
+    --text-dark: #1e293b;      /* 主文字深色 */
+    --text-medium: #475569;    /* 次文字 */
     --text-light: #94a3b8;     /* 浅文字 */
-    --border: rgba(255, 255, 255, 0.08); /* 半透明白边 */
-    --card-bg: rgba(255, 255, 255, 0.04); /* 卡片半透明蓝灰 */
-    --card-bg-hover: rgba(255, 255, 255, 0.08);
+    --border: #dbeafe;         /* 浅蓝边框 */
+    --card-bg: #ffffff;        /* 卡片白底 */
+    --card-bg-hover: #f8faff;
     --success: #10b981;
     --warning: #f59e0b;
     --white: #ffffff;
@@ -37,7 +37,7 @@ body {
     color: var(--text-dark);
     line-height: 1.6;
     overflow-x: hidden;
-    background: linear-gradient(180deg, #0a1628 0%, #122544 50%, #0a1628 100%);
+    background: linear-gradient(180deg, #e6f0ff 0%, #f0f7ff 50%, #e6f0ff 100%);
     background-attachment: fixed;
 }
 
@@ -48,16 +48,16 @@ body {
     left: 0;
     right: 0;
     z-index: 1000;
-    background: rgba(10, 22, 40, 0.78);
+    background: rgba(255, 255, 255, 0.88);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid var(--border);
     transition: all 0.3s ease;
 }
 
 .header.scrolled {
-    background: rgba(10, 22, 40, 0.95);
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: 0 2px 20px rgba(37, 99, 235, 0.1);
 }
 
 .header-container {
@@ -85,12 +85,11 @@ body {
     height: 44px;
     width: auto;
     object-fit: contain;
-    /* logo 原图为白底透明，深蓝背景下让白底融入深色，仅显示蓝色 H + 网络球 */
-    filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.35));
+    filter: drop-shadow(0 2px 4px rgba(37, 99, 235, 0.15));
 }
 
 .logo-text .logo-main {
-    color: var(--white);
+    color: var(--text-dark);
 }
 
 .logo-icon {
@@ -115,7 +114,7 @@ body {
 .logo-text .logo-main {
     font-size: 1.1rem;
     font-weight: 800;
-    color: var(--white);
+    color: var(--primary);
 }
 
 .logo-text .logo-sub {
@@ -132,7 +131,7 @@ body {
 }
 
 .nav-link {
-    color: rgba(255, 255, 255, 0.78);
+    color: var(--text-medium);
     text-decoration: none;
     font-size: 0.95rem;
     font-weight: 500;
@@ -164,8 +163,8 @@ body {
 }
 
 .lang-toggle {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: #ffffff;
+    border: 1px solid var(--border);
     color: var(--text-dark);
     padding: 6px 14px;
     border-radius: 6px;
@@ -179,7 +178,7 @@ body {
 }
 
 .lang-toggle:hover {
-    background: rgba(255, 255, 255, 0.15);
+    background: var(--bg-gray);
     border-color: var(--accent);
 }
 
@@ -267,7 +266,7 @@ body {
     padding: 6px 16px;
     border-radius: 50px;
     font-size: 0.85rem;
-    color: var(--accent-light);
+    color: var(--accent-dark);
     margin-bottom: 24px;
     backdrop-filter: blur(8px);
 }
@@ -278,13 +277,12 @@ body {
     line-height: 1.2;
     margin-bottom: 20px;
     letter-spacing: -0.5px;
-    color: var(--white);
-    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+    color: var(--primary);
 }
 
 .hero-subtitle {
     font-size: 1.2rem;
-    color: rgba(203, 213, 225, 0.92);
+    color: var(--text-medium);
     margin-bottom: 36px;
     line-height: 1.7;
 }
@@ -305,7 +303,7 @@ body {
     justify-content: center;
     border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(59, 130, 246, 0.2);
+    box-shadow: 0 12px 40px rgba(37, 99, 235, 0.12), 0 0 0 1px rgba(59, 130, 246, 0.2);
 }
 
 .hero-scene-img {
@@ -330,7 +328,7 @@ body {
     align-items: center;
     gap: 8px;
     box-shadow: 0 6px 20px rgba(59, 130, 246, 0.35);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border);
 }
 
 .btn-primary:hover {
@@ -340,15 +338,15 @@ body {
 }
 
 .btn-secondary {
-    background: rgba(255, 255, 255, 0.06);
-    color: var(--white);
+    background: #ffffff;
+    color: var(--accent);
     padding: 14px 32px;
     border-radius: 8px;
     text-decoration: none;
     font-size: 1rem;
     font-weight: 600;
     transition: all 0.3s;
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    border: 1px solid var(--border);
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -356,19 +354,19 @@ body {
 }
 
 .btn-secondary:hover {
-    background: rgba(59, 130, 246, 0.15);
+    background: var(--bg-gray);
     border-color: var(--accent);
-    color: var(--accent-light);
+    color: var(--accent-dark);
     transform: translateY(-2px);
 }
 
 /* ==================== Stats Bar ==================== */
 .stats-bar {
-    background: rgba(255, 255, 255, 0.04);
+    background: #ffffff;
     backdrop-filter: blur(10px);
     padding: 40px 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
 }
 
 .stats-container {
@@ -388,14 +386,13 @@ body {
 .stat-number {
     font-size: 2.5rem;
     font-weight: 800;
-    color: var(--accent-light);
+    color: var(--accent);
     margin-bottom: 4px;
-    text-shadow: 0 0 20px rgba(96, 165, 250, 0.4);
 }
 
 .stat-label {
     font-size: 0.9rem;
-    color: rgba(203, 213, 225, 0.85);
+    color: var(--text-medium);
 }
 
 /* ==================== Section General ==================== */
@@ -405,9 +402,9 @@ body {
 }
 
 .section-gray {
-    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.05));
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    background: var(--bg-gray);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
 }
 
 .section-container {
@@ -424,18 +421,14 @@ body {
 .section-title {
     font-size: 2.25rem;
     font-weight: 800;
-    color: var(--white);
+    color: var(--primary);
     margin-bottom: 12px;
     letter-spacing: -0.5px;
-    background: linear-gradient(135deg, #ffffff, #cbd5e1);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
 }
 
 .section-subtitle {
     font-size: 1.1rem;
-    color: rgba(203, 213, 225, 0.85);
+    color: var(--text-medium);
     max-width: 700px;
     margin: 0 auto;
 }
@@ -453,7 +446,7 @@ body {
     padding: 32px 24px;
     text-align: center;
     transition: all 0.3s;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--border);
     cursor: pointer;
     text-decoration: none;
     color: var(--text-dark);
@@ -479,7 +472,7 @@ body {
     align-items: center;
     justify-content: center;
     margin-bottom: 8px;
-    background: rgba(255, 255, 255, 0.06);
+    background: #ffffff;
     padding: 16px;
     overflow: hidden;
 }
@@ -505,7 +498,7 @@ body {
 .brand-name {
     font-size: 1.1rem;
     font-weight: 700;
-    color: var(--white);
+    color: var(--text-dark);
 }
 
 /* ==================== Product Categories ==================== */
@@ -520,7 +513,7 @@ body {
     border-radius: 12px;
     padding: 32px 24px;
     transition: all 0.3s;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--border);
     text-align: center;
     backdrop-filter: blur(8px);
 }
@@ -549,12 +542,12 @@ body {
     font-size: 1.15rem;
     font-weight: 700;
     margin-bottom: 8px;
-    color: var(--white);
+    color: var(--text-dark);
 }
 
 .category-desc {
     font-size: 0.9rem;
-    color: rgba(203, 213, 225, 0.85);
+    color: var(--text-medium);
     line-height: 1.5;
 }
 
@@ -570,7 +563,7 @@ body {
     padding: 32px 24px;
     background: var(--card-bg);
     border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--border);
     transition: all 0.3s;
     backdrop-filter: blur(8px);
 }
@@ -600,12 +593,12 @@ body {
     font-size: 1.2rem;
     font-weight: 700;
     margin-bottom: 10px;
-    color: var(--white);
+    color: var(--text-dark);
 }
 
 .feature-desc {
     font-size: 0.95rem;
-    color: rgba(203, 213, 225, 0.85);
+    color: var(--text-medium);
     line-height: 1.6;
 }
 
@@ -637,20 +630,20 @@ body {
 
 /* Override btn-secondary inside CTA (on colored bg) */
 .cta-section .btn-secondary {
-    background: rgba(255, 255, 255, 0.15);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: #ffffff;
+    color: var(--accent);
+    border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .cta-section .btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.25);
-    border-color: rgba(255, 255, 255, 0.5);
+    background: #f0f7ff;
+    border-color: #ffffff;
 }
 
 /* ==================== Footer ==================== */
 .footer {
-    background: #0a1929;
-    color: rgba(255, 255, 255, 0.7);
+    background: #1e3a5f;
+    color: #cbd5e1;
     padding: 64px 0 24px;
 }
 
@@ -705,14 +698,14 @@ body {
 }
 
 .footer-links a {
-    color: rgba(255, 255, 255, 0.6);
+    color: #94a3b8;
     text-decoration: none;
     font-size: 0.9rem;
     transition: color 0.2s;
 }
 
 .footer-links a:hover {
-    color: white;
+    color: #60a5fa;
 }
 
 .footer-contact-item {
@@ -734,6 +727,7 @@ body {
     justify-content: space-between;
     align-items: center;
     font-size: 0.85rem;
+    color: #94a3b8;
 }
 
 /* ==================== Products Page ==================== */
@@ -784,7 +778,7 @@ body {
     font-size: 2.8rem;
     font-weight: 800;
     margin-bottom: 12px;
-    text-shadow: 0 2px 16px rgba(0,0,0,0.5);
+    text-shadow: 0 2px 8px rgba(37, 99, 235, 0.1);
     letter-spacing: -0.01em;
 }
 
@@ -793,7 +787,7 @@ body {
     z-index: 2;
     font-size: 1.1rem;
     color: rgba(255, 255, 255, 0.85);
-    text-shadow: 0 1px 8px rgba(0,0,0,0.4);
+    text-shadow: 0 1px 8px rgba(37, 99, 235, 0.15);
 }
 
 .page-header .breadcrumb {
@@ -828,13 +822,13 @@ body {
 }
 
 .filter-bar {
-    background: rgba(255, 255, 255, 0.04);
+    background: #ffffff;
     backdrop-filter: blur(10px);
     padding: 24px;
     border-radius: 12px;
     margin-bottom: 32px;
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 20px rgba(37, 99, 235, 0.12);
     position: sticky;
     top: 88px;
     z-index: 100;
@@ -843,7 +837,7 @@ body {
 .filter-label {
     font-size: 0.85rem;
     font-weight: 600;
-    color: rgba(203, 213, 225, 0.9);
+    color: var(--text-medium);
     margin-bottom: 10px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -859,9 +853,9 @@ body {
 .brand-filter-btn {
     padding: 8px 18px;
     border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    background: rgba(255, 255, 255, 0.04);
-    color: rgba(203, 213, 225, 0.9);
+    border: 1px solid var(--border);
+    background: #ffffff;
+    color: var(--text-medium);
     font-size: 0.9rem;
     font-weight: 500;
     cursor: pointer;
@@ -899,9 +893,9 @@ body {
 .category-filter-btn {
     padding: 6px 16px;
     border-radius: 6px;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    background: rgba(255, 255, 255, 0.04);
-    color: rgba(203, 213, 225, 0.9);
+    border: 1px solid var(--border);
+    background: #ffffff;
+    color: var(--text-medium);
     font-size: 0.85rem;
     cursor: pointer;
     transition: all 0.2s;
@@ -927,11 +921,11 @@ body {
 }
 
 .product-card {
-    background: rgba(255, 255, 255, 0.04);
+    background: #ffffff;
     border-radius: 12px;
     overflow: hidden;
     transition: all 0.3s;
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--border);
     backdrop-filter: blur(8px);
     display: flex;
     flex-direction: column;
@@ -939,7 +933,7 @@ body {
 
 .product-card:hover {
     transform: translateY(-4px);
-    background: rgba(255, 255, 255, 0.08);
+    background: #ffffff;
     border-color: rgba(59, 130, 246, 0.5);
     box-shadow: 0 12px 32px rgba(59, 130, 246, 0.2);
 }
@@ -976,7 +970,7 @@ body {
 .product-image-content .product-model {
     font-size: 0.8rem;
     font-weight: 600;
-    color: rgba(203, 213, 225, 0.85);
+    color: var(--text-medium);
 }
 
 .product-brand-badge {
@@ -1002,7 +996,7 @@ body {
     font-size: 1.05rem;
     font-weight: 700;
     margin-bottom: 8px;
-    color: var(--white);
+    color: var(--text-dark);
 }
 
 .product-category {
@@ -1016,7 +1010,7 @@ body {
 
 .product-desc {
     font-size: 0.88rem;
-    color: rgba(203, 213, 225, 0.85);
+    color: var(--text-medium);
     line-height: 1.5;
     margin-bottom: 14px;
     flex: 1;
@@ -1066,15 +1060,15 @@ body {
 
 .btn-details {
     flex: 1;
-    background: rgba(255, 255, 255, 0.06);
-    color: rgba(255, 255, 255, 0.85);
+    background: #ffffff;
+    color: var(--text-medium);
     padding: 8px 16px;
     border-radius: 6px;
     text-decoration: none;
     font-size: 0.85rem;
     font-weight: 600;
     text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border: 1px solid var(--border);
     transition: all 0.2s;
     cursor: pointer;
 }
@@ -1108,12 +1102,12 @@ body {
     font-size: 2rem;
     font-weight: 800;
     margin-bottom: 20px;
-    color: var(--white);
+    color: var(--text-dark);
 }
 
 .about-text p {
     font-size: 1rem;
-    color: rgba(203, 213, 225, 0.9);
+    color: var(--text-medium);
     line-height: 1.8;
     margin-bottom: 16px;
 }
@@ -1121,7 +1115,7 @@ body {
 .about-visual {
     border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(59, 130, 246, 0.2);
+    box-shadow: 0 8px 32px rgba(37, 99, 235, 0.12), 0 0 0 1px rgba(59, 130, 246, 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1144,7 +1138,7 @@ body {
     background: var(--card-bg);
     border-radius: 12px;
     padding: 32px 24px;
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--border);
     transition: all 0.3s;
     backdrop-filter: blur(8px);
 }
@@ -1173,12 +1167,12 @@ body {
     font-size: 1.15rem;
     font-weight: 700;
     margin-bottom: 8px;
-    color: var(--white);
+    color: var(--text-dark);
 }
 
 .value-desc {
     font-size: 0.9rem;
-    color: rgba(203, 213, 225, 0.85);
+    color: var(--text-medium);
     line-height: 1.6;
 }
 
@@ -1191,12 +1185,12 @@ body {
 
 .contact-info-card {
     background: var(--card-bg);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--border);
     border-radius: 16px;
     padding: 40px;
     color: var(--text-dark);
     backdrop-filter: blur(8px);
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 24px rgba(37, 99, 235, 0.12);
 }
 
 .contact-info-card h3 {
@@ -1231,14 +1225,14 @@ body {
 
 .contact-info-item .label {
     font-size: 0.8rem;
-    color: rgba(203, 213, 225, 0.8);
+    color: var(--text-medium);
     margin-bottom: 4px;
 }
 
 .contact-info-item .value {
     font-size: 0.95rem;
     font-weight: 500;
-    color: var(--white);
+    color: var(--text-dark);
 }
 
 .contact-info-item .value a {
@@ -1254,16 +1248,16 @@ body {
     background: var(--card-bg);
     border-radius: 16px;
     padding: 40px;
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--border);
     backdrop-filter: blur(8px);
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 24px rgba(37, 99, 235, 0.12);
 }
 
 .contact-form-card h3 {
     font-size: 1.5rem;
     font-weight: 700;
     margin-bottom: 24px;
-    color: var(--white);
+    color: var(--text-dark);
 }
 
 .form-group {
@@ -1280,7 +1274,7 @@ body {
     display: block;
     font-size: 0.9rem;
     font-weight: 600;
-    color: rgba(203, 213, 225, 0.9);
+    color: var(--text-medium);
     margin-bottom: 6px;
 }
 
@@ -1289,18 +1283,18 @@ body {
 .form-textarea {
     width: 100%;
     padding: 12px 16px;
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border: 1px solid var(--border);
     border-radius: 8px;
     font-size: 0.95rem;
-    color: var(--white);
-    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-dark);
+    background: #ffffff;
     transition: all 0.2s;
     font-family: inherit;
 }
 
 .form-input::placeholder,
 .form-textarea::placeholder {
-    color: rgba(203, 213, 225, 0.4);
+    color: var(--text-light);
 }
 
 .form-input:focus,
@@ -1325,7 +1319,7 @@ body {
 
 .form-select option {
     background: var(--primary);
-    color: var(--white);
+    color: var(--text-dark);
 }
 
 .form-textarea {
@@ -1374,7 +1368,7 @@ body {
 }
 
 .modal-content {
-    background: linear-gradient(180deg, #122544 0%, #0a1628 100%);
+    background: #ffffff;
     border-radius: 16px;
     max-width: 600px;
     width: 100%;
@@ -1383,16 +1377,16 @@ body {
     padding: 40px;
     position: relative;
     border: 1px solid rgba(96, 165, 250, 0.3);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(59, 130, 246, 0.15);
-    color: var(--white);
+    box-shadow: 0 20px 60px rgba(37, 99, 235, 0.12), 0 0 0 1px rgba(59, 130, 246, 0.15);
+    color: var(--text-dark);
 }
 
 .modal-close {
     position: absolute;
     top: 16px;
     right: 16px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: #ffffff;
+    border: 1px solid var(--border);
     width: 36px;
     height: 36px;
     border-radius: 50%;
@@ -1401,7 +1395,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: rgba(255, 255, 255, 0.85);
+    color: var(--text-medium);
     transition: all 0.2s;
 }
 
@@ -1425,7 +1419,7 @@ body {
     font-size: 1.5rem;
     font-weight: 700;
     margin-bottom: 8px;
-    color: var(--white);
+    color: var(--text-dark);
 }
 
 .modal-product-category {
@@ -1437,14 +1431,14 @@ body {
 
 .modal-product-desc {
     font-size: 0.95rem;
-    color: rgba(203, 213, 225, 0.9);
+    color: var(--text-medium);
     line-height: 1.7;
     margin-bottom: 24px;
 }
 
 .modal-specs {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: var(--bg-gray);
+    border: 1px solid var(--border);
     border-radius: 10px;
     padding: 20px;
     margin-bottom: 24px;
@@ -1454,7 +1448,7 @@ body {
     font-size: 0.9rem;
     font-weight: 700;
     margin-bottom: 12px;
-    color: var(--white);
+    color: var(--text-dark);
 }
 
 .modal-specs ul {
@@ -1464,7 +1458,7 @@ body {
 .modal-specs li {
     padding: 6px 0;
     font-size: 0.88rem;
-    color: rgba(203, 213, 225, 0.9);
+    color: var(--text-medium);
     display: flex;
     gap: 8px;
 }
@@ -1575,7 +1569,7 @@ body {
         padding: 24px;
         gap: 16px;
         border-bottom: 1px solid var(--border);
-        box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        box-shadow: 0 4px 20px rgba(37, 99, 235, 0.08);
     }
     
     .hero {
@@ -1666,9 +1660,9 @@ body {
 .brand-marquee {
     overflow: hidden;
     padding: 40px 0;
-    background: rgba(255, 255, 255, 0.04);
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    background: #ffffff;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
 }
 
 .brand-marquee-track {
