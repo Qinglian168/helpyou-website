@@ -3,17 +3,20 @@
    ============================================ */
 
 :root {
-    --primary: #1a1a2e;
-    --primary-light: #16213e;
-    --accent: #2563eb;
-    --accent-light: #3b82f6;
-    --accent-dark: #1d4ed8;
-    --bg-light: #f8fafc;
-    --bg-gray: #f1f5f9;
-    --text-dark: #1e293b;
-    --text-medium: #475569;
-    --text-light: #94a3b8;
-    --border: #e2e8f0;
+    /* === 深蓝主题 === */
+    --primary: #0a1628;
+    --primary-light: #122544;
+    --accent: #3b82f6;
+    --accent-light: #60a5fa;
+    --accent-dark: #2563eb;
+    --bg-light: #0a1628;       /* body 底色 */
+    --bg-gray: #122544;        /* section gray */
+    --text-dark: #ffffff;      /* 主文字白 */
+    --text-medium: #cbd5e1;    /* 次文字浅蓝灰 */
+    --text-light: #94a3b8;     /* 浅文字 */
+    --border: rgba(255, 255, 255, 0.08); /* 半透明白边 */
+    --card-bg: rgba(255, 255, 255, 0.04); /* 卡片半透明蓝灰 */
+    --card-bg-hover: rgba(255, 255, 255, 0.08);
     --success: #10b981;
     --warning: #f59e0b;
     --white: #ffffff;
@@ -34,7 +37,8 @@ body {
     color: var(--text-dark);
     line-height: 1.6;
     overflow-x: hidden;
-    background: #ffffff;
+    background: linear-gradient(180deg, #0a1628 0%, #122544 50%, #0a1628 100%);
+    background-attachment: fixed;
 }
 
 /* ==================== Header ==================== */
@@ -44,14 +48,16 @@ body {
     left: 0;
     right: 0;
     z-index: 1000;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--border);
+    background: rgba(10, 22, 40, 0.78);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     transition: all 0.3s ease;
 }
 
 .header.scrolled {
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+    background: rgba(10, 22, 40, 0.95);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
 }
 
 .header-container {
@@ -75,6 +81,18 @@ body {
     letter-spacing: 0.5px;
 }
 
+.logo-img {
+    height: 44px;
+    width: auto;
+    object-fit: contain;
+    /* logo 原图为白底透明，深蓝背景下让白底融入深色，仅显示蓝色 H + 网络球 */
+    filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.35));
+}
+
+.logo-text .logo-main {
+    color: var(--white);
+}
+
 .logo-icon {
     width: 40px;
     height: 40px;
@@ -88,13 +106,6 @@ body {
     font-weight: 800;
 }
 
-.logo-img {
-    height: 44px;
-    width: auto;
-    object-fit: contain;
-    border-radius: 4px;
-}
-
 .logo-text {
     display: flex;
     flex-direction: column;
@@ -104,6 +115,7 @@ body {
 .logo-text .logo-main {
     font-size: 1.1rem;
     font-weight: 800;
+    color: var(--white);
 }
 
 .logo-text .logo-sub {
@@ -120,7 +132,7 @@ body {
 }
 
 .nav-link {
-    color: var(--text-medium);
+    color: rgba(255, 255, 255, 0.78);
     text-decoration: none;
     font-size: 0.95rem;
     font-weight: 500;
@@ -130,7 +142,7 @@ body {
 
 .nav-link:hover,
 .nav-link.active {
-    color: var(--accent);
+    color: var(--accent-light);
 }
 
 .nav-link.active::after {
@@ -142,6 +154,7 @@ body {
     height: 2px;
     background: var(--accent-light);
     border-radius: 2px;
+    box-shadow: 0 0 8px var(--accent-light);
 }
 
 .header-actions {
@@ -151,8 +164,8 @@ body {
 }
 
 .lang-toggle {
-    background: var(--bg-gray);
-    border: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     color: var(--text-dark);
     padding: 6px 14px;
     border-radius: 6px;
@@ -166,11 +179,12 @@ body {
 }
 
 .lang-toggle:hover {
-    background: #e2e8f0;
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--accent);
 }
 
 .btn-quote {
-    background: var(--accent);
+    background: linear-gradient(135deg, var(--accent), var(--accent-light));
     color: white;
     padding: 8px 20px;
     border-radius: 6px;
@@ -179,11 +193,13 @@ body {
     font-weight: 600;
     transition: all 0.2s;
     white-space: nowrap;
+    box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35);
 }
 
 .btn-quote:hover {
-    background: var(--accent-dark);
+    background: linear-gradient(135deg, var(--accent-dark), var(--accent));
     transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
 }
 
 .mobile-menu-btn {
@@ -197,7 +213,7 @@ body {
 
 /* ==================== Hero Section ==================== */
 .hero {
-    background: #ffffff;
+    background: transparent;
     color: var(--text-dark);
     padding: 140px 0 80px;
     position: relative;
@@ -211,7 +227,7 @@ body {
     right: -10%;
     width: 700px;
     height: 700px;
-    background: radial-gradient(circle, rgba(37, 99, 235, 0.04) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, transparent 70%);
     border-radius: 50%;
 }
 
@@ -222,7 +238,7 @@ body {
     left: -5%;
     width: 400px;
     height: 400px;
-    background: radial-gradient(circle, rgba(59, 130, 246, 0.03) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(96, 165, 250, 0.10) 0%, transparent 70%);
     border-radius: 50%;
 }
 
@@ -246,13 +262,14 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: #eff6ff;
-    border: 1px solid #bfdbfe;
+    background: rgba(59, 130, 246, 0.15);
+    border: 1px solid rgba(96, 165, 250, 0.4);
     padding: 6px 16px;
     border-radius: 50px;
     font-size: 0.85rem;
-    color: var(--accent);
+    color: var(--accent-light);
     margin-bottom: 24px;
+    backdrop-filter: blur(8px);
 }
 
 .hero h1 {
@@ -261,12 +278,13 @@ body {
     line-height: 1.2;
     margin-bottom: 20px;
     letter-spacing: -0.5px;
-    color: var(--text-dark);
+    color: var(--white);
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
 }
 
 .hero-subtitle {
     font-size: 1.2rem;
-    color: var(--text-medium);
+    color: rgba(203, 213, 225, 0.92);
     margin-bottom: 36px;
     line-height: 1.7;
 }
@@ -287,7 +305,7 @@ body {
     justify-content: center;
     border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(59, 130, 246, 0.2);
 }
 
 .hero-scene-img {
@@ -300,7 +318,7 @@ body {
 }
 
 .btn-primary {
-    background: var(--accent);
+    background: linear-gradient(135deg, var(--accent), var(--accent-light));
     color: white;
     padding: 14px 32px;
     border-radius: 8px;
@@ -311,41 +329,46 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 8px;
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .btn-primary:hover {
-    background: var(--accent-dark);
+    background: linear-gradient(135deg, var(--accent-dark), var(--accent));
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.4);
+    box-shadow: 0 10px 28px rgba(59, 130, 246, 0.55);
 }
 
 .btn-secondary {
-    background: white;
-    color: var(--accent);
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--white);
     padding: 14px 32px;
     border-radius: 8px;
     text-decoration: none;
     font-size: 1rem;
     font-weight: 600;
     transition: all 0.3s;
-    border: 1px solid var(--border);
+    border: 1px solid rgba(255, 255, 255, 0.18);
     display: inline-flex;
     align-items: center;
     gap: 8px;
+    backdrop-filter: blur(8px);
 }
 
 .btn-secondary:hover {
-    background: var(--bg-gray);
+    background: rgba(59, 130, 246, 0.15);
     border-color: var(--accent);
+    color: var(--accent-light);
     transform: translateY(-2px);
 }
 
 /* ==================== Stats Bar ==================== */
 .stats-bar {
-    background: var(--bg-gray);
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(10px);
     padding: 40px 0;
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .stats-container {
@@ -365,22 +388,26 @@ body {
 .stat-number {
     font-size: 2.5rem;
     font-weight: 800;
-    color: var(--accent);
+    color: var(--accent-light);
     margin-bottom: 4px;
+    text-shadow: 0 0 20px rgba(96, 165, 250, 0.4);
 }
 
 .stat-label {
     font-size: 0.9rem;
-    color: var(--text-medium);
+    color: rgba(203, 213, 225, 0.85);
 }
 
 /* ==================== Section General ==================== */
 .section {
     padding: 80px 0;
+    position: relative;
 }
 
 .section-gray {
-    background: var(--bg-gray);
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.05));
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .section-container {
@@ -397,14 +424,18 @@ body {
 .section-title {
     font-size: 2.25rem;
     font-weight: 800;
-    color: var(--text-dark);
+    color: var(--white);
     margin-bottom: 12px;
     letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #ffffff, #cbd5e1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .section-subtitle {
     font-size: 1.1rem;
-    color: var(--text-medium);
+    color: rgba(203, 213, 225, 0.85);
     max-width: 700px;
     margin: 0 auto;
 }
@@ -417,12 +448,12 @@ body {
 }
 
 .brand-card {
-    background: white;
+    background: var(--card-bg);
     border-radius: 12px;
     padding: 32px 24px;
     text-align: center;
     transition: all 0.3s;
-    border: 1px solid var(--border);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     cursor: pointer;
     text-decoration: none;
     color: var(--text-dark);
@@ -430,12 +461,14 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 12px;
+    backdrop-filter: blur(8px);
 }
 
 .brand-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+    background: var(--card-bg-hover);
     border-color: var(--accent);
+    box-shadow: 0 12px 32px rgba(59, 130, 246, 0.2);
 }
 
 .brand-logo-box {
@@ -446,7 +479,7 @@ body {
     align-items: center;
     justify-content: center;
     margin-bottom: 8px;
-    background: var(--bg-gray);
+    background: rgba(255, 255, 255, 0.06);
     padding: 16px;
     overflow: hidden;
 }
@@ -458,20 +491,21 @@ body {
 }
 
 .brand-logo-box-more {
-    background: linear-gradient(135deg, #2563eb, #3b82f6);
+    background: linear-gradient(135deg, var(--accent), var(--accent-light));
     font-size: 1.5rem;
     font-weight: 800;
     color: white;
 }
 
 .brand-card-more {
-    background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(96, 165, 250, 0.1));
     border-color: var(--accent);
 }
 
 .brand-name {
     font-size: 1.1rem;
     font-weight: 700;
+    color: var(--white);
 }
 
 /* ==================== Product Categories ==================== */
@@ -482,17 +516,19 @@ body {
 }
 
 .category-card {
-    background: white;
+    background: var(--card-bg);
     border-radius: 12px;
     padding: 32px 24px;
     transition: all 0.3s;
-    border: 1px solid var(--border);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     text-align: center;
+    backdrop-filter: blur(8px);
 }
 
 .category-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+    background: var(--card-bg-hover);
+    box-shadow: 0 12px 32px rgba(59, 130, 246, 0.2);
     border-color: var(--accent);
 }
 
@@ -500,7 +536,8 @@ body {
     width: 64px;
     height: 64px;
     margin: 0 auto 16px;
-    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(96, 165, 250, 0.15));
+    border: 1px solid rgba(96, 165, 250, 0.3);
     border-radius: 16px;
     display: flex;
     align-items: center;
@@ -512,11 +549,12 @@ body {
     font-size: 1.15rem;
     font-weight: 700;
     margin-bottom: 8px;
+    color: var(--white);
 }
 
 .category-desc {
     font-size: 0.9rem;
-    color: var(--text-medium);
+    color: rgba(203, 213, 225, 0.85);
     line-height: 1.5;
 }
 
@@ -530,6 +568,18 @@ body {
 .feature-card {
     text-align: center;
     padding: 32px 24px;
+    background: var(--card-bg);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: all 0.3s;
+    backdrop-filter: blur(8px);
+}
+
+.feature-card:hover {
+    background: var(--card-bg-hover);
+    border-color: rgba(59, 130, 246, 0.4);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(59, 130, 246, 0.18);
 }
 
 .feature-icon {
@@ -543,17 +593,19 @@ body {
     justify-content: center;
     font-size: 2rem;
     color: white;
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.35);
 }
 
 .feature-title {
     font-size: 1.2rem;
     font-weight: 700;
     margin-bottom: 10px;
+    color: var(--white);
 }
 
 .feature-desc {
     font-size: 0.95rem;
-    color: var(--text-medium);
+    color: rgba(203, 213, 225, 0.85);
     line-height: 1.6;
 }
 
@@ -688,7 +740,7 @@ body {
 .products-page {
     padding-top: 120px;
     min-height: 100vh;
-    background: var(--bg-light);
+    background: transparent;
 }
 
 .page-header {
@@ -776,11 +828,13 @@ body {
 }
 
 .filter-bar {
-    background: white;
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(10px);
     padding: 24px;
     border-radius: 12px;
     margin-bottom: 32px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     position: sticky;
     top: 88px;
     z-index: 100;
@@ -789,7 +843,7 @@ body {
 .filter-label {
     font-size: 0.85rem;
     font-weight: 600;
-    color: var(--text-medium);
+    color: rgba(203, 213, 225, 0.9);
     margin-bottom: 10px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -805,9 +859,9 @@ body {
 .brand-filter-btn {
     padding: 8px 18px;
     border-radius: 8px;
-    border: 1px solid var(--border);
-    background: white;
-    color: var(--text-medium);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(203, 213, 225, 0.9);
     font-size: 0.9rem;
     font-weight: 500;
     cursor: pointer;
@@ -819,13 +873,15 @@ body {
 
 .brand-filter-btn:hover {
     border-color: var(--accent);
-    color: var(--accent);
+    color: var(--accent-light);
+    background: rgba(59, 130, 246, 0.1);
 }
 
 .brand-filter-btn.active {
-    background: var(--accent);
+    background: linear-gradient(135deg, var(--accent), var(--accent-light));
     color: white;
     border-color: var(--accent);
+    box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
 }
 
 .brand-filter-btn .brand-dot {
@@ -843,9 +899,9 @@ body {
 .category-filter-btn {
     padding: 6px 16px;
     border-radius: 6px;
-    border: 1px solid var(--border);
-    background: white;
-    color: var(--text-medium);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(203, 213, 225, 0.9);
     font-size: 0.85rem;
     cursor: pointer;
     transition: all 0.2s;
@@ -853,13 +909,14 @@ body {
 
 .category-filter-btn:hover {
     border-color: var(--accent);
-    color: var(--accent);
+    color: var(--accent-light);
+    background: rgba(59, 130, 246, 0.1);
 }
 
 .category-filter-btn.active {
-    background: var(--bg-gray);
-    color: var(--primary);
-    border-color: var(--primary);
+    background: rgba(59, 130, 246, 0.2);
+    color: var(--accent-light);
+    border-color: var(--accent);
     font-weight: 600;
 }
 
@@ -870,18 +927,21 @@ body {
 }
 
 .product-card {
-    background: white;
+    background: rgba(255, 255, 255, 0.04);
     border-radius: 12px;
     overflow: hidden;
     transition: all 0.3s;
-    border: 1px solid var(--border);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(8px);
     display: flex;
     flex-direction: column;
 }
 
 .product-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(59, 130, 246, 0.5);
+    box-shadow: 0 12px 32px rgba(59, 130, 246, 0.2);
 }
 
 .product-image {
@@ -899,7 +959,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    opacity: 0.1;
+    opacity: 0.12;
 }
 
 .product-image-content {
@@ -916,7 +976,7 @@ body {
 .product-image-content .product-model {
     font-size: 0.8rem;
     font-weight: 600;
-    color: var(--text-medium);
+    color: rgba(203, 213, 225, 0.85);
 }
 
 .product-brand-badge {
@@ -942,12 +1002,12 @@ body {
     font-size: 1.05rem;
     font-weight: 700;
     margin-bottom: 8px;
-    color: var(--text-dark);
+    color: var(--white);
 }
 
 .product-category {
     font-size: 0.8rem;
-    color: var(--accent);
+    color: var(--accent-light);
     font-weight: 600;
     margin-bottom: 10px;
     text-transform: uppercase;
@@ -956,7 +1016,7 @@ body {
 
 .product-desc {
     font-size: 0.88rem;
-    color: var(--text-medium);
+    color: rgba(203, 213, 225, 0.85);
     line-height: 1.5;
     margin-bottom: 14px;
     flex: 1;
@@ -970,12 +1030,13 @@ body {
 }
 
 .spec-tag {
-    background: var(--bg-gray);
-    color: var(--text-medium);
+    background: rgba(59, 130, 246, 0.12);
+    color: var(--accent-light);
     padding: 3px 10px;
     border-radius: 4px;
     font-size: 0.75rem;
     font-weight: 500;
+    border: 1px solid rgba(96, 165, 250, 0.2);
 }
 
 .product-actions {
@@ -985,7 +1046,7 @@ body {
 
 .btn-inquire {
     flex: 1;
-    background: var(--accent);
+    background: linear-gradient(135deg, var(--accent), var(--accent-light));
     color: white;
     padding: 8px 16px;
     border-radius: 6px;
@@ -999,26 +1060,29 @@ body {
 }
 
 .btn-inquire:hover {
-    background: var(--accent-dark);
+    background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+    box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
 }
 
 .btn-details {
     flex: 1;
-    background: white;
-    color: var(--text-medium);
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.85);
     padding: 8px 16px;
     border-radius: 6px;
     text-decoration: none;
     font-size: 0.85rem;
     font-weight: 600;
     text-align: center;
-    border: 1px solid var(--border);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     transition: all 0.2s;
+    cursor: pointer;
 }
 
 .btn-details:hover {
     border-color: var(--accent);
-    color: var(--accent);
+    color: var(--accent-light);
+    background: rgba(59, 130, 246, 0.1);
 }
 
 .no-results {
@@ -1044,12 +1108,12 @@ body {
     font-size: 2rem;
     font-weight: 800;
     margin-bottom: 20px;
-    color: var(--text-dark);
+    color: var(--white);
 }
 
 .about-text p {
     font-size: 1rem;
-    color: var(--text-medium);
+    color: rgba(203, 213, 225, 0.9);
     line-height: 1.8;
     margin-bottom: 16px;
 }
@@ -1057,7 +1121,7 @@ body {
 .about-visual {
     border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(59, 130, 246, 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1077,16 +1141,19 @@ body {
 }
 
 .value-card {
-    background: white;
+    background: var(--card-bg);
     border-radius: 12px;
     padding: 32px 24px;
-    border: 1px solid var(--border);
+    border: 1px solid rgba(255, 255, 255, 0.06);
     transition: all 0.3s;
+    backdrop-filter: blur(8px);
 }
 
 .value-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+    background: var(--card-bg-hover);
+    border-color: rgba(59, 130, 246, 0.4);
+    box-shadow: 0 12px 32px rgba(59, 130, 246, 0.18);
 }
 
 .value-icon {
@@ -1098,18 +1165,20 @@ body {
     justify-content: center;
     font-size: 1.6rem;
     margin-bottom: 16px;
-    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(96, 165, 250, 0.15));
+    border: 1px solid rgba(96, 165, 250, 0.3);
 }
 
 .value-title {
     font-size: 1.15rem;
     font-weight: 700;
     margin-bottom: 8px;
+    color: var(--white);
 }
 
 .value-desc {
     font-size: 0.9rem;
-    color: var(--text-medium);
+    color: rgba(203, 213, 225, 0.85);
     line-height: 1.6;
 }
 
@@ -1121,19 +1190,20 @@ body {
 }
 
 .contact-info-card {
-    background: white;
-    border: 1px solid var(--border);
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 16px;
     padding: 40px;
     color: var(--text-dark);
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
 }
 
 .contact-info-card h3 {
     font-size: 1.5rem;
     font-weight: 700;
     margin-bottom: 24px;
-    color: var(--primary);
+    color: var(--accent-light);
 }
 
 .contact-info-item {
@@ -1145,7 +1215,8 @@ body {
 .contact-info-item .icon {
     width: 48px;
     height: 48px;
-    background: rgba(0, 123, 255, 0.08);
+    background: rgba(59, 130, 246, 0.15);
+    border: 1px solid rgba(96, 165, 250, 0.3);
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -1160,32 +1231,39 @@ body {
 
 .contact-info-item .label {
     font-size: 0.8rem;
-    color: var(--text-medium);
+    color: rgba(203, 213, 225, 0.8);
     margin-bottom: 4px;
 }
 
 .contact-info-item .value {
     font-size: 0.95rem;
     font-weight: 500;
-    color: var(--text-dark);
+    color: var(--white);
 }
 
 .contact-info-item .value a {
-    color: var(--primary);
+    color: var(--accent-light);
     text-decoration: none;
 }
 
+.contact-info-item .value a:hover {
+    color: var(--accent);
+}
+
 .contact-form-card {
-    background: white;
+    background: var(--card-bg);
     border-radius: 16px;
     padding: 40px;
-    border: 1px solid var(--border);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
 }
 
 .contact-form-card h3 {
     font-size: 1.5rem;
     font-weight: 700;
     margin-bottom: 24px;
+    color: var(--white);
 }
 
 .form-group {
@@ -1202,7 +1280,7 @@ body {
     display: block;
     font-size: 0.9rem;
     font-weight: 600;
-    color: var(--text-dark);
+    color: rgba(203, 213, 225, 0.9);
     margin-bottom: 6px;
 }
 
@@ -1211,12 +1289,18 @@ body {
 .form-textarea {
     width: 100%;
     padding: 12px 16px;
-    border: 1px solid var(--border);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 8px;
     font-size: 0.95rem;
-    color: var(--text-dark);
-    transition: border-color 0.2s;
+    color: var(--white);
+    background: rgba(255, 255, 255, 0.04);
+    transition: all 0.2s;
     font-family: inherit;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+    color: rgba(203, 213, 225, 0.4);
 }
 
 .form-input:focus,
@@ -1224,7 +1308,24 @@ body {
 .form-textarea:focus {
     outline: none;
     border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    background: rgba(59, 130, 246, 0.08);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.form-select {
+    background-image: linear-gradient(45deg, transparent 50%, var(--accent-light) 50%),
+                      linear-gradient(135deg, var(--accent-light) 50%, transparent 50%);
+    background-position: calc(100% - 18px) 50%, calc(100% - 12px) 50%;
+    background-size: 6px 6px;
+    background-repeat: no-repeat;
+    appearance: none;
+    -webkit-appearance: none;
+    padding-right: 36px;
+}
+
+.form-select option {
+    background: var(--primary);
+    color: var(--white);
 }
 
 .form-textarea {
@@ -1234,7 +1335,7 @@ body {
 
 .btn-submit {
     width: 100%;
-    background: var(--accent);
+    background: linear-gradient(135deg, var(--accent), var(--accent-light));
     color: white;
     padding: 14px;
     border-radius: 8px;
@@ -1243,10 +1344,13 @@ body {
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.35);
 }
 
 .btn-submit:hover {
-    background: var(--accent-dark);
+    background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+    box-shadow: 0 10px 28px rgba(59, 130, 246, 0.55);
+    transform: translateY(-2px);
 }
 
 /* ==================== Modal ==================== */
@@ -1257,7 +1361,8 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
     z-index: 2000;
     align-items: center;
     justify-content: center;
@@ -1269,7 +1374,7 @@ body {
 }
 
 .modal-content {
-    background: white;
+    background: linear-gradient(180deg, #122544 0%, #0a1628 100%);
     border-radius: 16px;
     max-width: 600px;
     width: 100%;
@@ -1277,14 +1382,17 @@ body {
     overflow-y: auto;
     padding: 40px;
     position: relative;
+    border: 1px solid rgba(96, 165, 250, 0.3);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(59, 130, 246, 0.15);
+    color: var(--white);
 }
 
 .modal-close {
     position: absolute;
     top: 16px;
     right: 16px;
-    background: var(--bg-gray);
-    border: none;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     width: 36px;
     height: 36px;
     border-radius: 50%;
@@ -1293,11 +1401,14 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--text-medium);
+    color: rgba(255, 255, 255, 0.85);
+    transition: all 0.2s;
 }
 
 .modal-close:hover {
-    background: var(--border);
+    background: rgba(59, 130, 246, 0.2);
+    color: var(--accent-light);
+    border-color: var(--accent);
 }
 
 .modal-product-brand {
@@ -1314,24 +1425,26 @@ body {
     font-size: 1.5rem;
     font-weight: 700;
     margin-bottom: 8px;
+    color: var(--white);
 }
 
 .modal-product-category {
     font-size: 0.9rem;
-    color: var(--accent);
+    color: var(--accent-light);
     font-weight: 600;
     margin-bottom: 20px;
 }
 
 .modal-product-desc {
     font-size: 0.95rem;
-    color: var(--text-medium);
+    color: rgba(203, 213, 225, 0.9);
     line-height: 1.7;
     margin-bottom: 24px;
 }
 
 .modal-specs {
-    background: var(--bg-gray);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 10px;
     padding: 20px;
     margin-bottom: 24px;
@@ -1341,7 +1454,7 @@ body {
     font-size: 0.9rem;
     font-weight: 700;
     margin-bottom: 12px;
-    color: var(--text-dark);
+    color: var(--white);
 }
 
 .modal-specs ul {
@@ -1351,7 +1464,7 @@ body {
 .modal-specs li {
     padding: 6px 0;
     font-size: 0.88rem;
-    color: var(--text-medium);
+    color: rgba(203, 213, 225, 0.9);
     display: flex;
     gap: 8px;
 }
@@ -1375,16 +1488,26 @@ body {
     text-decoration: none;
     font-weight: 600;
     font-size: 0.9rem;
+    transition: all 0.2s;
 }
 
 .modal-cta .btn-email {
-    background: var(--accent);
+    background: linear-gradient(135deg, var(--accent), var(--accent-light));
     color: white;
+}
+
+.modal-cta .btn-email:hover {
+    background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+    box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
 }
 
 .modal-cta .btn-whatsapp {
     background: var(--success);
     color: white;
+}
+
+.modal-cta .btn-whatsapp:hover {
+    background: #059669;
 }
 
 /* ==================== Responsive ==================== */
@@ -1543,7 +1666,9 @@ body {
 .brand-marquee {
     overflow: hidden;
     padding: 40px 0;
-    background: white;
+    background: rgba(255, 255, 255, 0.04);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .brand-marquee-track {

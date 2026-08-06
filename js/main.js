@@ -13,6 +13,7 @@ function injectHeader() {
     <header class="header" id="header">
         <div class="header-container">
             <a href="index.html" class="logo">
+                <img src="images/helpyou-logo.png" alt="HELPYOU GROUP" class="logo-img">
                 <div class="logo-text">
                     <span class="logo-main">HELPYOU</span>
                     <span class="logo-sub">GROUP CO., LTD.</span>
@@ -58,6 +59,7 @@ function injectFooter() {
             <div class="footer-grid">
                 <div>
                     <div class="footer-brand">
+                        <img src="images/helpyou-logo.png" alt="HELPYOU GROUP" class="logo-img">
                         <div class="logo-text">
                             <span class="logo-main">HELPYOU GROUP</span>
                             <span class="logo-sub">CO., LTD.</span>
