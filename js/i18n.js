@@ -205,6 +205,12 @@ const i18nData = {
         'title_products': '產品目錄 - 鴻鵬集團有限公司',
         'title_about': '關於我們 - 鴻鵬集團有限公司',
         'title_contact': '聯絡我們 - 鴻鵬集團有限公司',
+        'title_news': '最新消息 - 鴻鵬集團有限公司',
+
+        // News Page
+        'news_page_title': '最新消息',
+        'news_page_subtitle': '了解鴻鵬集團最新動態、產品資訊及行業趨勢',
+        'news_view_all': '查看全部新聞',
 
         // Brand Marquee
         'marquee_text': 'Cisco · Fortinet · Dell · Juniper · Aruba · HPE · Huawei · H3C · NVIDIA · Yealink',
@@ -414,6 +420,12 @@ const i18nData = {
         'title_products': 'Product Catalog - Helpyou Group Co., Ltd.',
         'title_about': 'About Us - Helpyou Group Co., Ltd.',
         'title_contact': 'Contact Us - Helpyou Group Co., Ltd.',
+        'title_news': 'Events & News - Helpyou Group Co., Ltd.',
+
+        // News Page
+        'news_page_title': 'Events & News',
+        'news_page_subtitle': 'Stay updated with the latest product launches, industry insights, and company announcements from Helpyou Group.',
+        'news_view_all': 'View All News',
     }
 };
 
@@ -430,6 +442,9 @@ function setLang(lang) {
     applyTranslations();
     if (typeof renderProducts === 'function') {
         renderProducts();
+    }
+    if (typeof renderNewsList === 'function') {
+        renderNewsList();
     }
     updateActiveNav();
 }

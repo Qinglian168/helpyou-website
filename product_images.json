@@ -1,0 +1,118 @@
+[
+  {
+    "id": "cisco-01",
+    "image": "images/products/cisco-01.jpg"
+  },
+  {
+    "id": "cisco-02",
+    "image": "images/products/cisco-02.jpg"
+  },
+  {
+    "id": "fortinet-01",
+    "image": "images/products/fortinet-01.jpg"
+  },
+  {
+    "id": "fortinet-02",
+    "image": "images/products/fortinet-02.jpg"
+  },
+  {
+    "id": "dell-01",
+    "image": "images/products/dell-01.jpg"
+  },
+  {
+    "id": "dell-02",
+    "image": "images/products/dell-02.jpg"
+  },
+  {
+    "id": "juniper-01",
+    "image": "images/products/juniper-01.jpg"
+  },
+  {
+    "id": "juniper-02",
+    "image": "images/products/juniper-02.jpg"
+  },
+  {
+    "id": "aruba-01",
+    "image": "images/products/aruba-01.jpg"
+  },
+  {
+    "id": "aruba-02",
+    "image": "images/products/aruba-02.jpg"
+  },
+  {
+    "id": "hpe-01",
+    "image": "images/products/hpe-01.jpg"
+  },
+  {
+    "id": "hpe-02",
+    "image": "images/products/hpe-02.jpg"
+  },
+  {
+    "id": "huawei-01",
+    "image": "images/products/huawei-01.jpg"
+  },
+  {
+    "id": "huawei-02",
+    "image": "images/products/huawei-02.jpg"
+  },
+  {
+    "id": "h3c-01",
+    "image": "images/products/h3c-01.jpg"
+  },
+  {
+    "id": "h3c-02",
+    "image": "images/products/h3c-02.jpg"
+  },
+  {
+    "id": "nvidia-01",
+    "image": "images/products/nvidia-01.jpg"
+  },
+  {
+    "id": "yealink-01",
+    "image": "images/products/yealink-01.jpg"
+  },
+  {
+    "id": "yealink-02",
+    "image": "images/products/yealink-02.jpg"
+  },
+  {
+    "id": "poly-01",
+    "image": "images/products/poly-01.jpg"
+  },
+  {
+    "id": "grandstream-01",
+    "image": "images/products/grandstream-01.jpg"
+  },
+  {
+    "id": "ruckus-01",
+    "image": "images/products/ruckus-01.jpg"
+  },
+  {
+    "id": "ubiquiti-01",
+    "image": "images/products/ubiquiti-01.jpg"
+  },
+  {
+    "id": "ruijie-01",
+    "image": "images/products/ruijie-01.jpg"
+  },
+  {
+    "id": "sangfor-01",
+    "image": "images/products/sangfor-01.jpg"
+  },
+  {
+    "id": "logitech-01",
+    "image": "images/products/logitech-01.jpg"
+  },
+  {
+    "id": "avaya-01",
+    "image": "images/products/avaya-01.jpg"
+  },
+  {
+    "id": "fanvil-01",
+    "image": "images/products/fanvil-01.jpg"
+  },
+  {
+    "id": "apc-01",
+    "image": "images/products/apc-01.jpg"
+  }
+]
