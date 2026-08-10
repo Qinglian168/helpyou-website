@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="新聞詳情 - 鴻鵬集團有限公司">
+    <title data-i18n="title_news_detail">新聞詳情 - 鴻鵬集團有限公司</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body data-page="news-detail">
+    <div id="header-placeholder"></div>
+
+    <!-- Page Header -->
+    <div class="page-header" style="margin-top: 72px;">
+        <h1 data-i18n="news_detail_header">新聞詳情</h1>
+        <div class="breadcrumb">
+            <a href="index.html" data-i18n="nav_home">首頁</a>
+            <span class="sep">›</span>
+            <a href="news.html" data-i18n="nav_news">新聞</a>
+            <span class="sep">›</span>
+            <span class="current" data-i18n="news_detail_header">詳情</span>
+        </div>
+    </div>
+
+    <!-- News Detail Section -->
+    <section class="news-page-section">
+        <div class="section-container">
+            <div class="news-detail" id="newsDetailContainer">
+                <!-- News detail rendered by js/news.js -->
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-container">
+            <h2 class="cta-title" data-i18n="cta_title">準備好開始您的專案了嗎？</h2>
+            <p class="cta-subtitle" data-i18n="cta_subtitle">無論您需要產品報價、技術諮詢還是客製化解決方案，我們的專業團隊隨時為您服務。立即聯繫我們，獲取免費諮詢與優惠報價</p>
+            <div class="hero-buttons" style="justify-content: center;">
+                <a href="contact.html" class="btn-primary">
+                    <span data-i18n="cta_btn_quote">索取報價</span>
+                </a>
+                <a href="products.html" class="btn-secondary">
+                    <span data-i18n="cta_btn_browse">瀏覽產品</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="js/i18n.js"></script>
+    <script src="js/products.js"></script>
+    <script src="js/news.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

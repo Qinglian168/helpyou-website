@@ -423,6 +423,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Initialize news detail page if applicable
+    if (document.getElementById('newsDetailContainer')) {
+        if (typeof renderNewsDetail === 'function') {
+            renderNewsDetail();
+        }
+    }
+
     // Initialize contact form
     var contactForm = document.getElementById('contactForm');
     if (contactForm) {
