@@ -24,31 +24,197 @@
 
     <div id="app" class="admin-app" style="display:none;">
 
-        <!-- 顶部导航 -->
-        <header class="topbar">
-            <div class="topbar-brand">
+        <!-- 左侧导航菜单 -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
                 <span class="logo-mark">⚡</span>
                 <div>
-                    <div class="topbar-title">管理后台</div>
-                    <div class="topbar-sub">helpyouinfo.com</div>
+                    <div class="sidebar-title">管理后台</div>
+                    <div class="sidebar-sub">helpyouinfo.com</div>
                 </div>
             </div>
-            <nav class="top-tabs">
-                <a class="top-tab active" data-tab="products" onclick="Admin.switchTab('products')">📦 产品管理</a>
-                <a class="top-tab" data-tab="news" onclick="Admin.switchTab('news')">📰 新闻管理</a>
-                <a class="top-tab" data-tab="analytics" onclick="Admin.switchTab('analytics')">📈 访问统计</a>
-                <a class="top-tab" data-tab="settings" onclick="Admin.switchTab('settings')">⚙️ 系统设置</a>
+            <nav class="sidebar-menu">
+                <a class="menu-item active" data-tab="dashboard" onclick="Admin.switchTab('dashboard')"><span class="mi-icon">📊</span><span>仪表盘</span></a>
+                <a class="menu-item" data-tab="appearance" onclick="Admin.switchTab('appearance')"><span class="mi-icon">🎨</span><span>外观与布局</span></a>
+                <a class="menu-item" data-tab="texts" onclick="Admin.switchTab('texts')"><span class="mi-icon">✏️</span><span>文字内容</span></a>
+                <div class="menu-divider">内容管理</div>
+                <a class="menu-item" data-tab="products" onclick="Admin.switchTab('products')"><span class="mi-icon">📦</span><span>产品管理</span></a>
+                <a class="menu-item" data-tab="news" onclick="Admin.switchTab('news')"><span class="mi-icon">📰</span><span>新闻管理</span></a>
+                <div class="menu-divider">运营</div>
+                <a class="menu-item" data-tab="analytics" onclick="Admin.switchTab('analytics')"><span class="mi-icon">📈</span><span>访问统计</span></a>
+                <a class="menu-item" data-tab="settings" onclick="Admin.switchTab('settings')"><span class="mi-icon">⚙️</span><span>系统设置</span></a>
             </nav>
-            <div class="topbar-actions">
-                <a href="index.html" target="_blank" class="btn btn-ghost btn-sm">🌐 查看网站</a>
-                <button class="btn btn-ghost btn-sm" onclick="Admin.doLogout()">退出登录</button>
+            <div class="sidebar-foot">
+                <a href="index.html" target="_blank" class="btn btn-ghost btn-sm btn-block">🌐 查看网站</a>
+                <button class="btn btn-ghost btn-sm btn-block" onclick="Admin.doLogout()">退出登录</button>
             </div>
-        </header>
+        </aside>
 
         <main class="main">
 
+            <!-- ========== 仪表盘 ========== -->
+            <section id="tab-dashboard" class="tab-panel active">
+                <div class="page-head">
+                    <div>
+                        <h1>仪表盘</h1>
+                        <p class="muted">站点内容与运营总览</p>
+                    </div>
+                </div>
+
+                <div class="grid-4">
+                    <div class="stat-card">
+                        <div class="stat-icon">📦</div>
+                        <div class="stat-label">产品数量</div>
+                        <div class="stat-value" id="dsProducts">-</div>
+                        <div class="muted">在 <code>products.js</code></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📰</div>
+                        <div class="stat-label">新闻数量</div>
+                        <div class="stat-value" id="dsNews">-</div>
+                        <div class="muted">在 <code>news.js</code></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🏷️</div>
+                        <div class="stat-label">品牌数</div>
+                        <div class="stat-value" id="dsBrands">-</div>
+                        <div class="muted">已配置颜色/Logo</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🌐</div>
+                        <div class="stat-label">语言</div>
+                        <div class="stat-value" style="font-size:1.4rem">简繁 + EN</div>
+                        <div class="muted">zh-TW · en</div>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <h3>📊 快速操作</h3>
+                        <div class="quick-actions">
+                            <button class="qa-btn" onclick="Admin.switchTab('products');Admin.editProduct(null)">＋ 新增产品</button>
+                            <button class="qa-btn" onclick="Admin.switchTab('news');Admin.editNews(null)">＋ 发布新闻</button>
+                            <button class="qa-btn" onclick="Admin.switchTab('appearance')">🎨 调整外观</button>
+                            <button class="qa-btn" onclick="Admin.switchTab('texts')">✏️ 修改文字</button>
+                            <button class="qa-btn" onclick="Admin.switchTab('analytics')">📈 查看统计</button>
+                            <button class="qa-btn" onclick="Admin.switchTab('settings')">⚙️ 系统设置</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>🕒 最近发布</h3>
+                        <div id="dsRecentNews" class="recent-list"><p class="muted">加载中…</p></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>ℹ️ 站点信息</h3>
+                    <table class="info-table">
+                        <tr><th>站点地址</th><td><a href="https://www.helpyouinfo.com" target="_blank">https://www.helpyouinfo.com</a></td></tr>
+                        <tr><th>代码仓库</th><td><a href="https://github.com/Qinglian168/helpyou-website" target="_blank" id="dsRepoLink">Qinglian168/helpyou-website</a></td></tr>
+                        <tr><th>当前主题色</th><td><span id="dsPrimaryColor" class="color-swatch"></span> <code id="dsPrimaryCode">未自定义</code></td></tr>
+                        <tr><th>统计状态</th><td id="dsAnalyticsStatus">-</td></tr>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ========== 外观与布局 ========== -->
+            <section id="tab-appearance" class="tab-panel">
+                <div class="page-head">
+                    <div>
+                        <h1>外观与布局</h1>
+                        <p class="muted">改完点「保存」会同步到 <code>config.js</code>，再点「发布」立即上线</p>
+                    </div>
+                    <div>
+                        <button class="btn btn-ghost" onclick="Admin.resetAppearance()">恢复默认</button>
+                        <button class="btn btn-primary" onclick="Admin.publishAppearance()">🚀 保存并发布</button>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <h3>🎨 主题颜色</h3>
+                        <p class="muted">留空 = 使用 CSS 默认值</p>
+                        <div class="form-row"><label>主色（导航/标题）</label><div class="color-input"><input type="color" id="apPrimary" value="#0f172a"><input type="text" id="apPrimaryTxt" placeholder="留空使用默认" oninput="Admin.syncColor('apPrimary', this.value)"></div></div>
+                        <div class="form-row"><label>强调色（按钮/链接）</label><div class="color-input"><input type="color" id="apAccent" value="#3b82f6"><input type="text" id="apAccentTxt" placeholder="留空使用默认" oninput="Admin.syncColor('apAccent', this.value)"></div></div>
+                        <div class="form-row"><label>页面底色</label><div class="color-input"><input type="color" id="apBg" value="#ffffff"><input type="text" id="apBgTxt" placeholder="留空使用默认" oninput="Admin.syncColor('apBg', this.value)"></div></div>
+                        <div class="form-row"><label>边框色</label><div class="color-input"><input type="color" id="apBorder" value="#e2e8f0"><input type="text" id="apBorderTxt" placeholder="留空使用默认" oninput="Admin.syncColor('apBorder', this.value)"></div></div>
+                    </div>
+                    <div class="card">
+                        <h3>📐 布局</h3>
+                        <div class="form-row"><label>圆角大小</label>
+                            <div class="range-input">
+                                <input type="range" id="apRadius" min="0" max="32" value="16" oninput="$('apRadiusTxt').value=this.value+'px'">
+                                <input type="text" id="apRadiusTxt" value="16px" oninput="$('apRadius').value=parseInt(this.value)||0">
+                            </div>
+                        </div>
+                        <div class="form-row"><label>内容最大宽度</label>
+                            <div class="range-input">
+                                <input type="range" id="apWidth" min="900" max="1600" step="50" value="1200" oninput="$('apWidthTxt').value=this.value+'px'">
+                                <input type="text" id="apWidthTxt" value="1200px" oninput="$('apWidth').value=parseInt(this.value)||1200">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="apHeaderDark" checked> 导航栏使用深色样式
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>📞 联系信息（覆盖页脚）</h3>
+                    <div class="form-grid-2">
+                        <div class="form-row"><label>电话</label><input type="text" id="apPhone" placeholder="+886-2-xxxxxxxx"></div>
+                        <div class="form-row"><label>邮箱</label><input type="text" id="apEmail" placeholder="info@helpyouinfo.com"></div>
+                        <div class="form-row"><label>WhatsApp</label><input type="text" id="apWhatsapp" placeholder="+886-9xxxxxxxx"></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>👁️ 实时预览</h3>
+                    <p class="muted">调整后立即在此预览：</p>
+                    <div class="ap-preview" id="apPreview">
+                        <div class="ap-preview-header">导航栏预览</div>
+                        <div class="ap-preview-body">
+                            <h4>这是一个标题示例</h4>
+                            <p>这是一段正文。点击按钮体验强调色：</p>
+                            <button class="ap-preview-btn">主按钮</button>
+                            <button class="ap-preview-btn-secondary">次按钮</button>
+                            <div class="ap-preview-card">卡片示例内容</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========== 文字内容 ========== -->
+            <section id="tab-texts" class="tab-panel">
+                <div class="page-head">
+                    <div>
+                        <h1>文字内容</h1>
+                        <p class="muted">覆盖 <code>i18n.js</code> 中的默认翻译。留空 = 使用默认</p>
+                    </div>
+                    <div>
+                        <button class="btn btn-ghost" onclick="Admin.loadTextsFromI18n()">从 i18n.js 同步键值</button>
+                        <button class="btn btn-primary" onclick="Admin.publishTexts()">🚀 保存并发布</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="toolbar">
+                        <select id="textsLang">
+                            <option value="zh-TW">中文 (繁/简)</option>
+                            <option value="en">English</option>
+                        </select>
+                        <input type="text" id="textsSearch" class="search-input" placeholder="🔍 搜索 key 或 value..." oninput="Admin.renderTexts()">
+                        <span class="muted" id="textsCount"></span>
+                    </div>
+                    <p class="muted" style="font-size:0.85rem">⚠️ <b>注意</b>：i18n.js 中的 key 可能与页面显示不完全一致（部分 key 已废弃或被代码硬编码），不确定时不要改。</p>
+                    <div id="textsList" class="texts-list"></div>
+                </div>
+            </section>
+
             <!-- ========== 产品管理 ========== -->
-            <section id="tab-products" class="tab-panel active">
+            <section id="tab-products" class="tab-panel">
                 <div class="page-head">
                     <div>
                         <h1>产品管理 <span class="muted">(<span id="pCount">0</span>)</span></h1>

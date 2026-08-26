@@ -224,12 +224,234 @@ var Admin = (function () {
     // ==================== Tabs ====================
     function switchTab(name) {
         document.querySelectorAll('.tab-panel').forEach(function (p) { p.classList.remove('active'); });
-        document.querySelectorAll('.top-tab').forEach(function (n) { n.classList.remove('active'); });
+        document.querySelectorAll('.menu-item').forEach(function (n) { n.classList.remove('active'); });
         var panel = $('tab-' + name);
         if (panel) panel.classList.add('active');
-        var nav = document.querySelector('.top-tab[data-tab="' + name + '"]');
+        var nav = document.querySelector('.menu-item[data-tab="' + name + '"]');
         if (nav) nav.classList.add('active');
         if (name === 'analytics') initAnalyticsTab();
+        if (name === 'appearance') initAppearanceTab();
+        if (name === 'texts') initTextsTab();
+        if (name === 'dashboard') renderDashboard();
+    }
+
+    // ==================== Site Config (config.js) ====================
+    var DEFAULT_COLORS = { primary: '#0f172a', accent: '#3b82f6', bgLight: '#ffffff', border: '#e2e8f0' };
+    var DEFAULT_LAYOUT = { radius: '16px', containerWidth: '1200px', headerDark: true };
+    var DEFAULT_INFO   = { phone: '', email: '', whatsapp: '' };
+
+    function ensureConfigDefaults(cfg) {
+        if (!cfg) cfg = {};
+        cfg.colors = Object.assign({}, DEFAULT_COLORS, cfg.colors || {});
+        cfg.layout = Object.assign({}, DEFAULT_LAYOUT, cfg.layout || {});
+        cfg.info   = Object.assign({}, DEFAULT_INFO,   cfg.info   || {});
+        cfg.texts  = cfg.texts  || { 'zh-TW': {}, en: {} };
+        cfg.analytics = cfg.analytics || { enabled: false, gcCode: '', gcToken: '' };
+        cfg._meta = cfg._meta || { lastUpdated: '', updatedBy: 'admin' };
+        return cfg;
+    }
+
+    async function loadConfig() {
+        try {
+            var code = await fetchText('js/config.js');
+            // 简单粗暴：eval 整个文件拿到 siteConfig
+            var w = sandboxEval(code, ['siteConfig']);
+            S.config = ensureConfigDefaults(w.siteConfig || null);
+        } catch (e) {
+            S.config = ensureConfigDefaults(null);
+        }
+        S.settings.gcCode = S.settings.gcCode || (S.config.analytics.gcCode || '');
+        S.settings.gcToken = S.settings.gcToken || (S.config.analytics.gcToken || '');
+        saveSettings();
+    }
+
+    function serializeConfig() {
+        var c = ensureConfigDefaults(S.config);
+        c._meta = c._meta || {};
+        c._meta.lastUpdated = new Date().toISOString();
+        c._meta.updatedBy = 'admin';
+        // 重新写为标准 JS 格式
+        return '/* ============================================\n' +
+            '   HELPYOU GROUP - Site Config\n' +
+            '   此文件由后台管理系统 (admin.html) 自动生成/更新\n' +
+            '   包含：主题颜色、布局、文字覆盖、统计设置\n' +
+            '   最后更新：' + c._meta.lastUpdated + '\n' +
+            '   ============================================ */\n\n' +
+            'var siteConfig = ' + JSON.stringify(c, null, 4) + ';\n\n' +
+            'window.siteConfig = siteConfig;\n';
+    }
+
+    async function publishConfig() {
+        try {
+            await ghPut('js/config.js', serializeConfig(), 'admin: update site config');
+            toast('✅ 站点配置已发布', 'success');
+        } catch (e) {
+            toast('发布失败：' + e.message, 'error');
+        }
+    }
+
+    // ==================== 仪表盘 ====================
+    function renderDashboard() {
+        $('dsProducts').textContent = S.products.length;
+        $('dsNews').textContent = S.news.length;
+        $('dsBrands').textContent = (S.prodStatic.brandList || []).length;
+        var c = ensureConfigDefaults(S.config);
+        $('dsPrimaryCode').textContent = c.colors.primary || '使用默认（' + DEFAULT_COLORS.primary + '）';
+        var swatch = $('dsPrimaryColor');
+        swatch.style.background = c.colors.primary || DEFAULT_COLORS.primary;
+        var ana = c.analytics || {};
+        $('dsAnalyticsStatus').innerHTML = ana.enabled && ana.gcCode
+            ? '<span style="color:var(--success)">✅ 已启用：' + esc(ana.gcCode) + '.goatcounter.com</span>'
+            : '<span class="muted">未配置（到「访问统计」标签页设置）</span>';
+        if (S.settings.repo) $('dsRepoLink').textContent = S.settings.repo;
+
+        // 最近 5 条新闻
+        var recent = S.news.slice().sort(function (a, b) { return (b.date || '').localeCompare(a.date || ''); }).slice(0, 5);
+        $('dsRecentNews').innerHTML = recent.length ? recent.map(function (n) {
+            var title = (n.title && (n.title['zh-TW'] || n.title.zh)) || '(无标题)';
+            return '<div class="recent-item">' +
+                '<span class="recent-date">' + esc(n.date) + '</span>' +
+                '<span class="recent-title">' + esc(title) + '</span>' +
+                '</div>';
+        }).join('') : '<p class="muted">暂无新闻</p>';
+    }
+
+    // ==================== 外观与布局 ====================
+    function initAppearanceTab() {
+        var c = ensureConfigDefaults(S.config);
+        ['primary', 'accent', 'bgLight', 'border'].forEach(function (k) {
+            var pickerId = k === 'bgLight' ? 'apBg' : 'ap' + k[0].toUpperCase() + k.slice(1);
+            var txtId    = pickerId + 'Txt';
+            var v = c.colors[k] || '';
+            if ($(pickerId)) $(pickerId).value = v || DEFAULT_COLORS[k];
+            if ($(txtId))    $(txtId).value = v;
+        });
+        $('apRadiusTxt').value = c.layout.radius || DEFAULT_LAYOUT.radius;
+        $('apRadius').value = parseInt(c.layout.radius) || parseInt(DEFAULT_LAYOUT.radius);
+        $('apWidthTxt').value = c.layout.containerWidth || DEFAULT_LAYOUT.containerWidth;
+        $('apWidth').value = parseInt(c.layout.containerWidth) || parseInt(DEFAULT_LAYOUT.containerWidth);
+        $('apHeaderDark').checked = c.layout.headerDark !== false;
+        $('apPhone').value = c.info.phone || '';
+        $('apEmail').value = c.info.email || '';
+        $('apWhatsapp').value = c.info.whatsapp || '';
+        applyAppearancePreview();
+    }
+
+    function collectAppearance() {
+        var c = ensureConfigDefaults(S.config);
+        c.colors.primary = $('apPrimaryTxt').value.trim() || '';
+        c.colors.accent  = $('apAccentTxt').value.trim()  || '';
+        c.colors.bgLight = $('apBgTxt').value.trim()     || '';
+        c.colors.border  = $('apBorderTxt').value.trim()  || '';
+        c.layout.radius = ($('apRadius').value || '0') + 'px';
+        c.layout.containerWidth = ($('apWidth').value || '1200') + 'px';
+        c.layout.headerDark = $('apHeaderDark').checked;
+        c.info.phone = $('apPhone').value.trim();
+        c.info.email = $('apEmail').value.trim();
+        c.info.whatsapp = $('apWhatsapp').value.trim();
+        return c;
+    }
+
+    function resetAppearance() {
+        if (!confirm('确定恢复所有外观设置为默认值？')) return;
+        S.config = ensureConfigDefaults({ colors: {}, layout: {}, info: {} });
+        initAppearanceTab();
+        toast('已恢复默认值，点「保存并发布」即可上线', 'success');
+    }
+
+    function publishAppearance() {
+        S.config = collectAppearance();
+        return publishConfig();
+    }
+
+    function syncColor(pickerId, val) {
+        var picker = $(pickerId);
+        if (picker && val && /^#[0-9a-f]{6}$/i.test(val)) picker.value = val;
+        applyAppearancePreview();
+    }
+
+    function applyAppearancePreview() {
+        var c = collectAppearance();
+        var root = $('apPreview');
+        if (!root) return;
+        root.style.setProperty('--preview-primary', c.colors.primary || DEFAULT_COLORS.primary);
+        root.style.setProperty('--preview-accent',  c.colors.accent  || DEFAULT_COLORS.accent);
+        root.style.setProperty('--preview-bg',      c.colors.bgLight || DEFAULT_COLORS.bgLight);
+        root.style.setProperty('--preview-border',  c.colors.border  || DEFAULT_COLORS.border);
+        root.style.setProperty('--preview-radius',  c.layout.radius  || DEFAULT_LAYOUT.radius);
+    }
+
+    // ==================== 文字内容 ====================
+    var _i18nCache = null;
+    function loadTextsFromI18n() {
+        try {
+            var code = ''; // 直接 fetch
+            fetch('js/i18n.js?t=' + Date.now()).then(function (r) { return r.text(); }).then(function (t) {
+                var w = sandboxEval(t, ['i18nData']);
+                _i18nCache = w.i18nData || {};
+                // 把所有 key 同步到当前语言的覆盖表（保留已有覆盖）
+                var lang = $('textsLang').value;
+                S.config = ensureConfigDefaults(S.config);
+                S.config.texts[lang] = S.config.texts[lang] || {};
+                Object.keys(_i18nCache[lang] || {}).forEach(function (k) {
+                    if (!S.config.texts[lang].hasOwnProperty(k)) {
+                        S.config.texts[lang][k] = '';
+                    }
+                });
+                renderTexts();
+                toast('已同步 ' + Object.keys(_i18nCache[lang] || {}).length + ' 个 key', 'success');
+            });
+        } catch (e) {
+            toast('同步失败：' + e.message, 'error');
+        }
+    }
+    function initTextsTab() {
+        S.config = ensureConfigDefaults(S.config);
+        if (!_i18nCache) {
+            // 尝试加载
+            fetch('js/i18n.js?t=' + Date.now()).then(function (r) { return r.text(); }).then(function (t) {
+                var w = sandboxEval(t, ['i18nData']);
+                _i18nCache = w.i18nData || {};
+                renderTexts();
+            }).catch(function () { renderTexts(); });
+        } else {
+            renderTexts();
+        }
+    }
+    function renderTexts() {
+        S.config = ensureConfigDefaults(S.config);
+        var lang = $('textsLang').value;
+        var q = ($('textsSearch').value || '').toLowerCase();
+        var overrides = S.config.texts[lang] || {};
+        var keys = Object.keys(_i18nCache && _i18nCache[lang] ? _i18nCache[lang] : {});
+        keys.sort();
+        if (q) keys = keys.filter(function (k) {
+            return k.toLowerCase().indexOf(q) >= 0 || String(_i18nCache[lang][k]).toLowerCase().indexOf(q) >= 0;
+        });
+        $('textsCount').textContent = keys.length + ' 个 key';
+        if (!keys.length) {
+            $('textsList').innerHTML = '<p class="muted" style="padding:24px;text-align:center">未找到匹配的 key。先点上方「从 i18n.js 同步键值」</p>';
+            return;
+        }
+        $('textsList').innerHTML = keys.map(function (k) {
+            var defaultVal = (_i18nCache[lang] || {})[k] || '';
+            var overrideVal = overrides[k] || '';
+            return '<div class="text-row">' +
+                '<div class="text-key">' + esc(k) + '</div>' +
+                '<div class="text-default muted">默认：' + esc(defaultVal) + '</div>' +
+                '<input type="text" class="text-override" data-key="' + esc(k) + '" value="' + esc(overrideVal) + '" placeholder="留空使用默认" oninput="Admin.onTextChange(\'' + esc(k).replace(/'/g, "\\'") + '\', this.value)">' +
+                '</div>';
+        }).join('');
+    }
+    function onTextChange(k, v) {
+        S.config = ensureConfigDefaults(S.config);
+        var lang = $('textsLang').value;
+        S.config.texts[lang] = S.config.texts[lang] || {};
+        if (v.trim()) S.config.texts[lang][k] = v;
+        else delete S.config.texts[lang][k];
+    }
+    function publishTexts() {
+        return publishConfig();
     }
 
     // ==================== 产品管理 ====================
@@ -643,7 +865,8 @@ var Admin = (function () {
     async function boot() {
         initSettings();
         try {
-            await loadAllData();
+            await Promise.all([loadAllData(), loadConfig()]);
+            renderDashboard();
             renderProducts();
             renderNews();
         } catch (e) {
@@ -665,6 +888,15 @@ var Admin = (function () {
     return {
         doLogin: doLogin, doLogout: doLogout,
         switchTab: switchTab,
+        // dashboard
+        renderDashboard: renderDashboard,
+        // appearance
+        initAppearanceTab: initAppearanceTab, publishAppearance: publishAppearance,
+        resetAppearance: resetAppearance, syncColor: syncColor,
+        // texts
+        initTextsTab: initTextsTab, renderTexts: renderTexts,
+        onTextChange: onTextChange, publishTexts: publishTexts,
+        loadTextsFromI18n: loadTextsFromI18n,
         // products
         renderProducts: renderProducts, editProduct: editProduct, saveProduct: saveProduct,
         deleteProduct: deleteProduct, publishProducts: publishProducts, downloadProducts: downloadProducts,
