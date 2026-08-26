@@ -386,8 +386,55 @@ function handleHashClick(e) {
     }
 }
 
+// ==================== Site Config (后台管理) ====================
+// 应用后台发布的外观配置（颜色 / 布局），来自 js/config.js
+function applySiteTheme() {
+    var cfg = window.siteConfig;
+    if (!cfg) return;
+    var root = document.documentElement.style;
+    var c = cfg.colors || {};
+    if (c.primary) {
+        root.setProperty('--primary', c.primary);
+        root.setProperty('--primary-light', c.primary);
+    }
+    if (c.accent) {
+        root.setProperty('--accent', c.accent);
+        root.setProperty('--accent-light', c.accent);
+        root.setProperty('--accent-dark', c.accent);
+    }
+    if (c.bgLight) root.setProperty('--bg-light', c.bgLight);
+    if (c.border) root.setProperty('--border', c.border);
+
+    var l = cfg.layout || {};
+    if (l.radius) {
+        root.setProperty('--radius-btn', l.radius);
+        root.setProperty('--radius-card', l.radius);
+    }
+    if (l.containerWidth) root.setProperty('--container-width', l.containerWidth);
+    if (l.headerDark === false) {
+        document.body.setAttribute('data-header-light', 'true');
+    }
+}
+
+// 应用后台发布的文字覆盖：写入 i18nData 后重新翻译
+function applyTextOverrides() {
+    var cfg = window.siteConfig;
+    if (!cfg || !cfg.texts || !window.i18nData) return;
+    ['zh-TW', 'en'].forEach(function (lang) {
+        var map = cfg.texts[lang];
+        if (!map || !window.i18nData[lang]) return;
+        Object.keys(map).forEach(function (key) {
+            if (map[key] !== '') window.i18nData[lang][key] = map[key];
+        });
+    });
+}
+
 // ==================== Initialize ====================
 document.addEventListener('DOMContentLoaded', function() {
+    // Apply admin-published config first (colors/layout/text overrides)
+    applySiteTheme();
+    applyTextOverrides();
+
     // Inject header and footer
     injectHeader();
     injectFooter();
