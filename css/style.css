@@ -1478,6 +1478,16 @@ body {
     font-weight: 700;
 }
 
+.usecase-tag {
+    display: inline-block;
+    padding: 6px 14px;
+    background: rgba(37, 99, 235, 0.08);
+    color: var(--accent);
+    border-radius: 16px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
 .modal-cta {
     display: flex;
     gap: 12px;

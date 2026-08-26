@@ -279,6 +279,15 @@ function openProductModal(productId) {
         return '<li>' + s + '</li>';
     }).join('') + '</ul>';
 
+    var useCasesHtml = '';
+    if (Array.isArray(product.useCases) && product.useCases.length) {
+        useCasesHtml = '<div class="modal-specs" style="margin-top: 16px;">' +
+            '<h4>' + (currentLang === 'en' ? 'Use Cases' : '适用场景') + '</h4>' +
+            '<div style="display: flex; gap: 8px; flex-wrap: wrap;">' +
+            product.useCases.map(function(u) { return '<span class="usecase-tag">' + u + '</span>'; }).join('') +
+            '</div></div>';
+    }
+
     var modal = '<div class="modal-overlay active" id="productModal" onclick="closeProductModal(event)">' +
         '<div class="modal-content" onclick="event.stopPropagation()">' +
             '<button class="modal-close" onclick="closeProductModal()">&#10005;</button>' +
@@ -294,6 +303,7 @@ function openProductModal(productId) {
                 '<h4 data-i18n="modal_specs">' + t('modal_specs') + '</h4>' +
                 specsHtml +
             '</div>' +
+            useCasesHtml +
             '<div class="modal-cta">' +
                 '<a href="mailto:info@helpyouinfo.com?subject=' + encodeURIComponent('Inquiry: ' + product.brand + ' ' + product.model) + '" class="btn-email">' +
                     '&#9993;&#65039; ' + t('modal_inquire_email') +
