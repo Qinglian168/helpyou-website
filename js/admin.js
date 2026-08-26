@@ -168,6 +168,7 @@ var Admin = (function () {
         S.news = (nd.newsData || []).map(normalizeNews);
     }
     function normalizeProduct(p) {
+        var seo = p.seo || {};
         return {
             id: p.id, brand: p.brand, brandClass: p.brandClass, category: p.category, icon: p.icon || '📦',
             model: p.model || '',
@@ -175,7 +176,13 @@ var Admin = (function () {
             name: { 'zh-TW': (p.name && (p.name['zh-TW'] || p.name.zh || '')) || '', en: (p.name && p.name.en) || '' },
             desc: { 'zh-TW': (p.desc && (p.desc['zh-TW'] || p.desc.zh || '')) || '', en: (p.desc && p.desc.en) || '' },
             specs: Array.isArray(p.specs) ? p.specs.slice() : [],
-            useCases: Array.isArray(p.useCases) ? p.useCases.slice() : []
+            useCases: Array.isArray(p.useCases) ? p.useCases.slice() : [],
+            seo: {
+                keywords: Array.isArray(seo.keywords) ? seo.keywords.slice() : [],
+                metaDesc: { 'zh-TW': (seo.metaDesc && (seo.metaDesc['zh-TW'] || seo.metaDesc.zh)) || '', en: (seo.metaDesc && seo.metaDesc.en) || '' },
+                geoRegion: seo.geoRegion || '',
+                canonicalUrl: seo.canonicalUrl || ''
+            }
         };
     }
     function normalizeNews(n) {
@@ -505,6 +512,14 @@ var Admin = (function () {
         renderSpecRows(p ? (p.specs || []) : []);
         renderUseCaseRows(p ? (p.useCases || []) : []);
 
+        // SEO & GEO
+        var seo = (p && p.seo) || {};
+        renderKeywordRows(Array.isArray(seo.keywords) ? seo.keywords : []);
+        $('pSeoDescZh').value = (seo.metaDesc && (seo.metaDesc['zh-TW'] || seo.metaDesc.zh)) || '';
+        $('pSeoDescEn').value = (seo.metaDesc && seo.metaDesc.en) || '';
+        $('pGeoRegion').value = seo.geoRegion || '';
+        $('pCanonicalUrl').value = seo.canonicalUrl || '';
+
         $('productModal').style.display = 'flex';
     }
 
@@ -551,6 +566,23 @@ var Admin = (function () {
         var div = document.createElement('div');
         div.innerHTML = '<div class="text-list-row"><input placeholder="场景" value=""><button class="kv-del" type="button" onclick="this.parentNode.remove()">×</button></div>';
         $('pUseCasesList').appendChild(div.firstChild);
+    }
+
+    // SEO 关键词：每行一个输入框
+    function renderKeywordRows(keywords) {
+        var html = '';
+        if (!keywords.length) html = '<div class="text-list-row"><input placeholder="如：Cisco路由器、企业网络设备、香港IT采购" value=""><button class="kv-del" type="button" onclick="this.parentNode.remove()">×</button></div>';
+        else {
+            keywords.forEach(function (k) {
+                html += '<div class="text-list-row"><input placeholder="搜索关键词" value="' + esc(k) + '"><button class="kv-del" type="button" onclick="this.parentNode.remove()">×</button></div>';
+            });
+        }
+        $('pKeywordsList').innerHTML = html;
+    }
+    function addKeywordRow() {
+        var div = document.createElement('div');
+        div.innerHTML = '<div class="text-list-row"><input placeholder="搜索关键词" value=""><button class="kv-del" type="button" onclick="this.parentNode.remove()">×</button></div>';
+        $('pKeywordsList').appendChild(div.firstChild);
     }
 
     function onProductImagePick(input) {
@@ -630,6 +662,17 @@ var Admin = (function () {
             if (v) useCases.push(v);
         });
 
+        // 收集 SEO 关键词
+        var keywords = [];
+        $('pKeywordsList').querySelectorAll('.text-list-row').forEach(function (row) {
+            var v = row.querySelector('input').value.trim();
+            if (v) keywords.push(v);
+        });
+        var seoDescZh = $('pSeoDescZh').value.trim();
+        var seoDescEn = $('pSeoDescEn').value.trim();
+        var geoRegion = $('pGeoRegion').value.trim();
+        var canonicalUrl = $('pCanonicalUrl').value.trim();
+
         var item = {
             id: id, brand: brand,
             brandClass: 'brand-' + brand.toLowerCase().replace(/[^a-z0-9]/g, ''),
@@ -638,7 +681,13 @@ var Admin = (function () {
             name: { 'zh-TW': nameZh, en: $('pNameEn').value.trim() },
             desc: { 'zh-TW': descZh, en: $('pDescEn').value.trim() },
             specs: specs,
-            useCases: useCases
+            useCases: useCases,
+            seo: {
+                keywords: keywords,
+                metaDesc: { 'zh-TW': seoDescZh, en: seoDescEn },
+                geoRegion: geoRegion,
+                canonicalUrl: canonicalUrl
+            }
         };
 
         if (isEdit) {
@@ -901,7 +950,7 @@ var Admin = (function () {
         renderProducts: renderProducts, editProduct: editProduct, saveProduct: saveProduct,
         deleteProduct: deleteProduct, publishProducts: publishProducts, downloadProducts: downloadProducts,
         onProductImagePick: onProductImagePick,
-        addSpecRow: addSpecRow, addUseCaseRow: addUseCaseRow,
+        addSpecRow: addSpecRow, addUseCaseRow: addUseCaseRow, addKeywordRow: addKeywordRow,
         // news
         editNews: editNews, saveNews: saveNews, deleteNews: deleteNews,
         publishNews: publishNews, downloadNews: downloadNews, renderNews: renderNews,

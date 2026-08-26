@@ -434,6 +434,35 @@
                         </div>
                     </div>
                 </details>
+
+                <details class="seo-details">
+                    <summary>🔍 SEO &amp; GEO 优化（可选）</summary>
+                    <div class="form-row">
+                        <label>搜索关键词 <span class="muted">— 影响搜索引擎排名，每行一个</span></label>
+                        <div id="pKeywordsList" class="text-list-edit"></div>
+                        <button class="btn btn-ghost btn-sm" onclick="Admin.addKeywordRow()">＋ 添加关键词</button>
+                    </div>
+                    <div class="form-grid-2">
+                        <div class="form-row">
+                            <label>SEO Meta 描述（中文）<span class="muted">— 留空则用产品描述</span></label>
+                            <textarea id="pSeoDescZh" rows="2" placeholder="搜索引擎结果中显示的描述文字"></textarea>
+                        </div>
+                        <div class="form-row">
+                            <label>SEO Meta Description (English)</label>
+                            <textarea id="pSeoDescEn" rows="2" placeholder="Meta description for search engines"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-grid-2">
+                        <div class="form-row">
+                            <label>GEO 目标地区 <span class="muted">— 如：香港、深圳、粤港澳大湾区</span></label>
+                            <input type="text" id="pGeoRegion" placeholder="目标客户所在地区">
+                        </div>
+                        <div class="form-row">
+                            <label>Canonical URL <span class="muted">— 留空则自动生成</span></label>
+                            <input type="text" id="pCanonicalUrl" placeholder="https://www.helpyouinfo.com/products.html?brand=...">
+                        </div>
+                    </div>
+                </details>
             </div>
             <div class="modal-actions">
                 <button class="btn btn-ghost" onclick="Admin.closeModal('productModal')">取消</button>

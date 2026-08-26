@@ -266,6 +266,23 @@ function initProductFilters() {
 }
 
 // ==================== Product Modal ====================
+var _seoBackup = { title: null, desc: null, jsonld: null };
+
+function buildProductKeywords(product) {
+    var seo = product.seo || {};
+    var kws = Array.isArray(seo.keywords) ? seo.keywords.slice() : [];
+    // 自动补充默认关键词（如果用户没填够）
+    if (kws.length < 3) {
+        var auto = [product.brand, product.brand + ' ' + product.model, product.brand + product.model];
+        var catMap = { router: '路由器', switch: '交換機', security: '防火牆', server: '伺服器', ap: '無線AP', phone: 'IP電話', ups: 'UPS電源' };
+        if (catMap[product.category]) auto.push(product.brand + catMap[product.category]);
+        auto.push('企業網路設備', '香港IT採購');
+        if (seo.geoRegion) auto.push(seo.geoRegion + product.brand);
+        auto.forEach(function (k) { if (kws.indexOf(k) < 0) kws.push(k); });
+    }
+    return kws;
+}
+
 function openProductModal(productId) {
     var data = window.productsData || productsData;
     var product = data.find(function(p) { return p.id === productId; });
@@ -274,7 +291,69 @@ function openProductModal(productId) {
     var name = product.name[currentLang] || product.name['en'];
     var desc = product.desc[currentLang] || product.desc['en'];
     var catText = t('cat_' + product.category) || product.category;
+    var seo = product.seo || {};
 
+    // SEO meta 描述（自定义 > 产品描述）
+    var seoDesc = (seo.metaDesc && (seo.metaDesc[currentLang] || seo.metaDesc['en'])) || desc;
+
+    // ===== 注入 SEO meta 标签 =====
+    _seoBackup.title = document.title;
+    _seoBackup.descMeta = document.querySelector('meta[name="description"]');
+    _seoBackup.descContent = _seoBackup.descMeta ? _seoBackup.descMeta.getAttribute('content') : '';
+
+    document.title = name + ' - ' + product.brand + ' ' + product.model + ' | 鴻鵬集團';
+    if (_seoBackup.descMeta) _seoBackup.descMeta.setAttribute('content', seoDesc);
+    else {
+        var m = document.createElement('meta');
+        m.name = 'description';
+        m.content = seoDesc;
+        document.head.appendChild(m);
+        _seoBackup.descMeta = m;
+    }
+
+    // keywords meta
+    var keywords = buildProductKeywords(product);
+    var kwMeta = document.querySelector('meta[name="keywords"]');
+    _seoBackup.kwMeta = kwMeta;
+    _seoBackup.kwContent = kwMeta ? kwMeta.getAttribute('content') : '';
+    if (!kwMeta) {
+        kwMeta = document.createElement('meta');
+        kwMeta.name = 'keywords';
+        document.head.appendChild(kwMeta);
+    }
+    kwMeta.setAttribute('content', keywords.join(', '));
+
+    // ===== 注入 JSON-LD 结构化数据 (Product schema) =====
+    var oldJsonLd = document.getElementById('product-jsonld');
+    if (oldJsonLd) oldJsonLd.remove();
+
+    var jsonLd = {
+        '@context': 'https://schema.org',
+        '@type': 'Product',
+        'name': name,
+        'brand': { '@type': 'Brand', 'name': product.brand },
+        'model': product.model,
+        'description': seoDesc,
+        'category': catText,
+        'image': product.image ? (product.image.startsWith('http') ? product.image : 'https://www.helpyouinfo.com/' + product.image) : undefined,
+        'keywords': keywords.join(', '),
+        'offers': {
+            '@type': 'Offer',
+            'availability': 'https://schema.org/InStock',
+            'seller': { '@type': 'Organization', 'name': '鴻鵬集團有限公司 HelpYou Group' }
+        }
+    };
+    if (seo.geoRegion) jsonLd.areaServed = seo.geoRegion;
+    // 清理 undefined
+    Object.keys(jsonLd).forEach(function (k) { if (jsonLd[k] === undefined) delete jsonLd[k]; });
+
+    var scriptTag = document.createElement('script');
+    scriptTag.type = 'application/ld+json';
+    scriptTag.id = 'product-jsonld';
+    scriptTag.textContent = JSON.stringify(jsonLd);
+    document.head.appendChild(scriptTag);
+
+    // ===== 渲染 Modal =====
     var specsHtml = '<ul>' + product.specs.map(function(s) {
         return '<li>' + s + '</li>';
     }).join('') + '</ul>';
@@ -286,6 +365,23 @@ function openProductModal(productId) {
             '<div style="display: flex; gap: 8px; flex-wrap: wrap;">' +
             product.useCases.map(function(u) { return '<span class="usecase-tag">' + u + '</span>'; }).join('') +
             '</div></div>';
+    }
+
+    // SEO 关键词标签展示
+    var keywordsHtml = '';
+    if (keywords.length) {
+        keywordsHtml = '<div class="modal-specs" style="margin-top: 16px;">' +
+            '<h4>' + (currentLang === 'en' ? 'Keywords' : '搜索关键词') + '</h4>' +
+            '<div style="display: flex; gap: 6px; flex-wrap: wrap;">' +
+            keywords.map(function(k) { return '<span class="keyword-tag">' + k + '</span>'; }).join('') +
+            '</div></div>';
+    }
+
+    // GEO 地区展示
+    var geoHtml = '';
+    if (seo.geoRegion) {
+        geoHtml = '<div style="margin-top: 12px; padding: 8px 12px; background: #f0f7ff; border-radius: 8px; font-size: 0.85rem; color: #1e40af;">' +
+            '📍 ' + (currentLang === 'en' ? 'Service Area' : '服务地区') + '：' + seo.geoRegion + '</div>';
     }
 
     var modal = '<div class="modal-overlay active" id="productModal" onclick="closeProductModal(event)">' +
@@ -304,6 +400,8 @@ function openProductModal(productId) {
                 specsHtml +
             '</div>' +
             useCasesHtml +
+            keywordsHtml +
+            geoHtml +
             '<div class="modal-cta">' +
                 '<a href="mailto:info@helpyouinfo.com?subject=' + encodeURIComponent('Inquiry: ' + product.brand + ' ' + product.model) + '" class="btn-email">' +
                     '&#9993;&#65039; ' + t('modal_inquire_email') +
@@ -332,6 +430,16 @@ function closeProductModal(event) {
         modal.remove();
         document.body.style.overflow = '';
     }
+    // 恢复原始 SEO meta
+    if (_seoBackup.title) { document.title = _seoBackup.title; _seoBackup.title = null; }
+    if (_seoBackup.descMeta && _seoBackup.descContent !== null) {
+        _seoBackup.descMeta.setAttribute('content', _seoBackup.descContent);
+    }
+    if (_seoBackup.kwMeta && _seoBackup.kwContent !== null) {
+        _seoBackup.kwMeta.setAttribute('content', _seoBackup.kwContent);
+    }
+    var jsonLd = document.getElementById('product-jsonld');
+    if (jsonLd) jsonLd.remove();
 }
 
 function inquireProduct(productId) {
